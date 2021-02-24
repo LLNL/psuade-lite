@@ -1,0 +1,36 @@
+OBJS = mars36_fort.o
+OBJS2 = mars35_fort.o
+OBJS3 = mars36_noprint.o
+
+libmars.a: $(OBJS)
+	$(AR) ruv libmars.a mars36_fort.o
+	$(RANLIB) libmars.a
+
+libmars1.a:
+	$(CC) $(CFLAGS) -O -c mars36_fort.c
+	$(AR) ruv libmars1.a mars36_fort.o
+	$(RANLIB) libmars1.a
+
+libmars2.a: $(OBJS2)
+	$(AR) ruv libmars2.a $(OBJS2)
+	$(RANLIB) libmars2.a
+
+libmars3.a: $(OBJS3)
+	$(AR) ruv libmars3.a $(OBJS3)
+	$(RANLIB) libmars3.a
+
+mars36_fort.o: mars36_fort.f
+	$(F77) $(FFLAGS) -O -c mars36_fort.f
+
+mars35_fort.o: mars35_fort.f
+	$(F77) $(FFLAGS) -O -c mars35_fort.f
+
+mars36_noprint.o: mars36_noprint.f
+	$(F77) $(FFLAGS) -O -c mars36_noprint.f
+
+clean:
+	rm -f *.o ./libmars*.a Makefile
+
+realclean:
+	rm -f *.o ./libmars*.a Makefile
+

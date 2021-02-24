@@ -1,0 +1,35 @@
+OBJS = calfun.o getact.o lincoa.o lincob.o prelim.o qmstep.o trstep.o update.o 
+
+liblincoa.a: $(OBJS)
+	$(AR) ruv $@ $(OBJS)
+	$(RANLIB) $@
+
+bobyqa.o: bobyqa.f
+        $(F77) $(FFLAGS) -O -c bobyqa.f
+
+calfun.o: calfun.f
+	$(F77) $(FFLAGS) -c calfun.f
+getact.o: getact.f
+	$(F77) $(FFLAGS) -c getact.f
+lincoa.o: lincoa.f
+	$(F77) $(FFLAGS) -c lincoa.f
+lincob.o: lincob.f
+	$(F77) $(FFLAGS) -c lincob.f
+main.o: main.f
+	$(F77) $(FFLAGS) -c main.f
+prelim.o: prelim.f
+	$(F77) $(FFLAGS) -c prelim.f
+qmstep.o: qmstep.f
+	$(F77) $(FFLAGS) -c qmstep.f
+trstep.o: trstep.f
+	$(F77) $(FFLAGS) -c trstep.f
+update.o: update.f
+	$(F77) $(FFLAGS) -c update.f
+
+clean:
+	rm -f *.o ./liblincoa.a Makefile
+
+realclean:
+	rm -f *.o ./liblincoa.a Makefile
+
+

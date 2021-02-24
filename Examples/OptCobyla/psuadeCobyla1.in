@@ -1,0 +1,46 @@
+PSUADE_IO (Note : inputs not true inputs if pdf ~=U)
+2 6 1
+1 1
+   10
+   10
+   2.0000000000000000e+02
+   1.9000000000000000e+01
+   1.9900000000000000e+02
+   9.9100000000000000e+02
+   9.0000000000000000e+01
+   9.0000000000000000e+01
+PSUADE_IO
+PSUADE
+INPUT
+   dimension = 2
+   variable 1 X1 =  -1.0000000000000000e+01   1.0000000000000000e+01
+   variable 2 X2 =  -1.0000000000000000e+01   1.0000000000000000e+01
+END
+OUTPUT
+   dimension = 6
+   variable 1 Y
+   variable 2 Y1
+   variable 3 Y2
+   variable 4 Y3
+   variable 5 Y4
+   variable 6 Y5
+END
+METHOD
+   sampling = MC
+   num_samples = 1
+END
+APPLICATION
+   driver = ./simulator1
+   opt_driver = ./simulator1
+END
+ANALYSIS
+   optimization method = cobyla
+   optimization num_local_minima = 1
+   optimization max_feval = 10000
+   optimization fmin = 0.0
+   optimization tolerance = 1.000000e-06
+   optimization num_fmin = 1
+   optimization print_level = 0
+   printlevel 3
+END
+END

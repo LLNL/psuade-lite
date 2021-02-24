@@ -1,0 +1,24 @@
+PSUADE
+INPUT
+   dimension = 3
+   variable   1 H   = 40  60
+   variable   2 M   = 67  74
+   variable   3 sig = 20  40
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y1
+END
+METHOD
+   sampling = MC
+   num_samples = 5
+END
+APPLICATION
+   driver = NONE
+   gen_inputfile_only
+   launch_interval = 0
+END
+ANALYSIS
+   printlevel 1
+END
+END

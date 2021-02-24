@@ -1,0 +1,105 @@
+Test problem #1 (Asaadi 1)
+
+From: Sven Leyffer: 
+"Deterministic Methods for Mixed Integer Nonlinear Programming"
+
+How to run:
+- compile: cc -o simulator1 simulator1.c -lm
+- psuade psuadeNomad1.in 
+  and select variable types according to cases below
+
+Case 1: input 1, 2, 4 are integers, input 3 is continuous
+
+   Solution: min=-40.957, X=(0, 1, 2.236, 0)
+
+Case 2: all 4 inputs are integers
+
+   Solution: min=-38.0, X=(0, 1, 2, 0)
+
+Case 3: all inputs are continuous
+
+   Solution: min=-40.96, X=(0, 1.07, 2.22, 0)
+   Cobyla is better.
+   - Use: psuade psuadeCobyla1.in 
+
+=============================================================
+Test problem #2 (Asaadi 2)
+
+From: Sven Leyffer: 
+"Deterministic Methods for Mixed Integer Nonlinear Programming"
+
+Case 1a: first 4 inputs integers, 3 continuous
+
+How to run:
+- compile: cc -o simulator2 simulator2.c -lm
+- psuade psuadeNomad2ouu.in (enter M1=7)
+  (also make sure the psuadeNomad2ouu.in file has discrete1 to 4)
+
+		X     1 = 2
+		X     2 = 2
+		X     3 = 0
+		X     4 = 4
+		X     5 = 0
+		X     6 = 1.13e+00
+		X     7 = 1.46e+00
+			Ymin =   6.95e+02
+
+Case 1b: first 4 inputs integers, 3 continuous, no constraint
+
+How to run:
+- compile: cc -o simulator2 simulator2.c -lm
+- psuade psuadeNomad2ouu_noconstr.in (enter M1=7)
+(also make sure the psuadeNomad2ouu_noconstr.in file has discrete1 to 4)
+
+		X     1 = 3
+		X     2 = 2
+		X     3 = 0
+		X     4 = 5
+		X     5 = 0
+		X     6 = 1.13e+00
+		X     7 = 1.46e+00
+		X     8 = 0
+			Ymin =   6.41e+02
+
+case 2: all continuous
+How to run:
+- compile: cc -o simulator2 simulator2.c -lm
+- psuade psuadeCobyla2ouu.in)
+
+        Nomad takes too long. Cobyla is much better.
+		X     1 =   2.35e+00
+		X     2 =   1.94e+00
+		X     3 =  -2.47e-24
+		X     4 =   4.30e+00
+		X     5 =  -1.00e-03
+		X     6 =   1.05e+00
+		X     7 =   1.58e+00
+			Ymin =   6.84e+02
+
+=============================================================
+Test problem #3 : Critical function (CRIT 3)
+
+psuade psuadeNomad3.in or psuade psuadeSCE3.in
+
+The first 15 parameters are continuous
+The next  15 parameters are discrete
+
+How to run:
+- Compile: cc -o simulator3 simulator3.c -lm
+- psuade < psScriptNomad3.in
+
+or
+
+- psuade < psScriptSCE3.in
+
+Solution:
+	X = all 0
+	Ymin =  -4.500e+04
+
+=============================================================
+Test problem #4 : a simple problem
+
+How to run:
+- Compile: cc -o simulator4 simulator4.c -lm
+- psuade < psuadeNomad4.in
+

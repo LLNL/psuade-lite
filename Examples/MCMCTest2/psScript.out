@@ -1,0 +1,606 @@
+**********************************************************************
+*      Welcome to PSUADE (version 1.7.0)
+**********************************************************************
+PSUADE - A Problem Solving environment for 
+         Uncertainty Analysis and Design Exploration (1.7.0)
+(for help, enter <help>)
+======================================================================
+psuade> psuade> INFO: Creating a sample assuming all uncertain parameters
+      are uniformly distributed.
+PSUADE run: creating interface to user driver.
+PSUADE run: output level = 1
+PSUADE run: max parallel jobs = 1
+PSUADE run: max job wait time = 1000000 seconds
+PSUADE run: min job wait time = 1 seconds
+PSUADE run: launch interval   = 0 seconds
+PSUADE run: save frequency    = every 1000000 runs
+NOTE: if evaluation should be fast but is slow, check save frequency.
+Note: use psuade_pmachine to dynamically change max jobs.
+Note: use psuade_stop to terminate gracefully.
+======================================================================
+PSUADE run: running sample, nSamples = 625 
+.........
+Sample point    100 completed (out of 625).
+.........
+Sample point    200 completed (out of 625).
+.........
+Sample point    300 completed (out of 625).
+.........
+Sample point    400 completed (out of 625).
+.........
+Sample point    500 completed (out of 625).
+.........
+Sample point    600 completed (out of 625).
+..
+PSUADE run: jobs completed = 625(out of 625)
+======================================================================
+psuade> psuadeData has been renamed to simdata
+psuade> psuade> psuade> load complete : nSamples = 625
+                nInputs  = 4
+                nOutputs = 2
+psuade> psuade printlevel set to 3
+psuade> No transformation (e.g. log) on sample inputs nor outputs.
+**********************************************************************
+*                     MCMC Optimizer
+======================================================================
+TO GAIN ACCESS TO DIFFERENT OPTIONS: TURN ON
+
+ * ana_expert to finetune MCMC parameters, 
+   (e.g. sample size for burn-in can be adjusted).
+ * rs_expert to finetune response surface used in MCMC,
+ * printlevel 3 to display more diagnostic information.
+ * printlevel 4 to display more iteration information.
+ * printlevel >=5 reserved only for expert diagnostics only.
+----------------------------------------------------------------------
+FEATURES AVAILABLE IN THE CURRENT VERSION OF MCMC:
+ * Support different prior distributions (default: uniform)
+   - set ana_expert to use other than uniform distributions.
+ * Support multiple outputs (likelihood from multiple outputs)
+ * For some response surfaces such as polynomial and legendre
+   polynomials, bootstrapped MARS, and Gaussian process (GP1),
+   the fitting errors (response surface errors) may be used in
+   the likelihood functions. There are two types of such errors:
+   1. fitting errors (errors incurred in interpolation), and
+   2. model form errors (in this case a discrepancy model is used.)
+      - use ana_expert to select these options
+ * Some input parameters may be disabled (set to default values)
+   - in case these parameters are not to be calibrated
+   - use rs_index_file in PSUADE data file's ANALYSIS section
+     to select them and to set them to default values.
+   - this feature is not available with discrepancy modeling.
+ * A sample may be generated from the posteriors.
+   - use ana_expert to be able to select this option
+ * This analysis can be terminated gracefully by creating a file
+   named 'psuade_stop' in the same directory during execution.
+   (in case it takes too long).
+======================================================================
+*** NEED DATA TO CREATE GAUSSIAN LIKELIHOOD FUNCTION: 
+
+MCMC is going to create a Gaussian likelihood function.
+Please provide a data file containing design parameter
+values, mean, and standard deviation of the observation
+data for each output.
+NOTE: the design parameters are useful only if you wish to
+      include a discrepancy function (if you don't know what
+      this is, simply do not specify any design parameters).
+IMPORTANT: IF m DESIGN PARAMETERS ARE SPECIFIED, YOU NEED
+      TO SPECIFY WHICH ONES (IN THE INPUT SPACE) THEY ARE.
+      THESE DESIGN PARAMETERS WILL BE EXCLUDED FROM BEING
+      CALIBRATION PARAMETERS.
+----------------------------------------------------------------------
+*** THE FORMAT OF THIS DATA FILE IS: (O1 means output 1, 
+    m - no. of design parameters, p - no. of experiments): 
+PSUADE_BEGIN
+<p> <nOutputs> <m> <design parameter identifiers>
+1 <design values...> <O1 mean> <O1 std dev> ... <On std dev> 
+2 <design values...> <O1 mean> <O1 std dev> ... <On std dev> 
+...
+p <design values...> <O1 mean> <O1 std dev> ... <On std dev> 
+PSUADE_END
+----------------------------------------------------------------------
+The likelihood function to be constructed is in the form of:
+      C exp(-0.5*S) 
+where C is some internal normalization constant and
+      S = 1/ p sum_{k=1}^p sum_{i=1)^n (Y_ki - m_ki)^2/sd_ki^2
+where n is the number of outputs and m_ki and
+      sd_ki are the mean and standard deviation of output i of
+      group k.
+----------------------------------------------------------------------
+NOTE: Alternately, your simulator (or response surface) output
+      may instead be some error measure from comparison of all
+      model outputs with observational data. In this case, set
+      nOutputs=1, mean = 0, and standard deviation = 1 in this
+      specification file (that is, your simulation output is S
+      above and MCMC will generate likelihood C exp(-0.5 S).
+===> Enter the spec file for building the likelihood function : SPEC FILE: Number of observation set    = 9
+SPEC FILE: Number of simulation/emulation outputs = 2
+SPEC FILE: Number of design parameters  = 1
+SPEC FILE: input 4 is a design parameter
+Calibration Data Set 1
+   Design parameter 1 = 2.000000e-01
+      Data mean/stdev =   6.01800000e+01   6.01800000e-01
+      Data mean/stdev =   6.85600000e+01   6.85600000e-01
+Calibration Data Set 2
+   Design parameter 1 = 4.000000e-01
+      Data mean/stdev =   6.89000000e+01   6.89000000e-01
+      Data mean/stdev =   7.40400000e+01   7.40400000e-01
+Calibration Data Set 3
+   Design parameter 1 = 6.000000e-01
+      Data mean/stdev =   7.88200000e+01   7.88200000e-01
+      Data mean/stdev =   7.96800000e+01   7.96800000e-01
+Calibration Data Set 4
+   Design parameter 1 = 8.000000e-01
+      Data mean/stdev =   8.99400000e+01   8.99400000e-01
+      Data mean/stdev =   8.54800000e+01   8.54800000e-01
+Calibration Data Set 5
+   Design parameter 1 = 1.000000e+00
+      Data mean/stdev =   1.02260000e+02   1.02260000e+00
+      Data mean/stdev =   9.14400000e+01   9.14400000e-01
+Calibration Data Set 6
+   Design parameter 1 = 1.200000e+00
+      Data mean/stdev =   1.15780000e+02   1.15780000e+00
+      Data mean/stdev =   9.75600000e+01   9.75600000e-01
+Calibration Data Set 7
+   Design parameter 1 = 1.400000e+00
+      Data mean/stdev =   1.30500000e+02   1.30500000e+00
+      Data mean/stdev =   1.03840000e+02   1.03840000e+00
+Calibration Data Set 8
+   Design parameter 1 = 1.600000e+00
+      Data mean/stdev =   1.46420000e+02   1.46420000e+00
+      Data mean/stdev =   1.10280000e+02   1.10280000e+00
+Calibration Data Set 9
+   Design parameter 1 = 1.800000e+00
+      Data mean/stdev =   1.63540000e+02   1.63540000e+00
+      Data mean/stdev =   1.16880000e+02   1.16880000e+00
+======================================================================
+A response surface index file has been specified.
+INFO: rs_index_file indexFile found.
+MCMC INFO: input   1 inactive
+Response surface index information: 
+Input    1: index =    0, default = 4.000000e-01
+Input    2: index =    2, default = 0.000000e+00
+Input    3: index =    3, default = 0.000000e+00
+Input    4: index =    4, default = 0.000000e+00
+MCMC INFO: CREATING RESPONSE SURFACES FOR ALL OUTPUTS.
+MCMC INFO: CREATING RESPONSE SURFACE FOR OUTPUT 1.
+----------------------------------------------------------------------
+Available response surface tools: 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+0. MARS 
+1. Linear regression 
+2. Quadratic regression 
+3. Cubic regression 
+4. Quartic regression 
+6. Selective polynomial regression 
+7. Gaussian process (MacKay)
+8. Gaussian process (Rasmussen)
+9. SVM-light (Joachims)
+10. Derivative-based Legendre polynomial regression
+11. Tree-based Gaussian Process
+12. MARS with bootstrap aggregating (bagging)
+13. Earth (another MARS)
+14. Sum-of-trees model
+15. Legendre polynomial regression
+16. User-defined (nonpolynomial) regression
+17. Sparse Grid polynomial regression
+18. Kriging
+19. Splines on regular grid (1D, 2D, or 3D only)
+20. K nearest neighbors 
+21. Radial Basis Function
+Please enter your choice ? INFO: rstype = regression.
+**********************************************************************
+*             Quadratic Regression Analysis
+* R-squared gives a measure of the goodness of the model.
+* R-squared should be close to 1 if it is a good model.
+* TURN ON rs_expert mode to output regression matrix.
+* TURN ON rs_expert mode to output regression function.
+* TURN ON rs_expert mode to condition covariance matrix.
+* SET print level to 4 to output data standard deviations.
+----------------------------------------------------------------------
+* Suggestion: if your parameter ranges are too high, SCALE
+*             them first using 'irerange' command in PSUADE
+*             command line mode.
+======================================================================
+* Regression: SStot  =   4.0971171875000000e+06
+* Regression: SSreg  =   4.0971171875000629e+06
+* Regression: SSres  =  -4.8682671005551015e-08
+* Regression: SSres  =   6.5861752430021657e-22 (true)
+* Regression: eps(Y) =   1.0797008595085517e-24
+* Regression WARNING: some of the coefficient variances
+*            are < 0. May spell trouble but will
+*            proceed anyway (15).
+======================================================================
+*** Note: these coefficients may not be true coefficients due
+***       to sample matrix scaling (that is, they may be scaled).
+----------------------------------------------------------------------
+*                  coefficient   std. error   t-value
+----------------------------------------------------------------------
+* Constant      =   1.1800e+02   9.2594e-07   1.2744e+08
+* Input   1     =   2.6892e+01   3.5763e-07   7.5195e+07
+* Input   2     =   3.9630e+01   3.5763e-07   1.1081e+08
+* Input   3     =   3.9630e+01   3.5763e-07   1.1081e+08
+* Input   4     =   4.9537e+01   3.5763e-07   1.3852e+08
+* Input   1   1 =   3.0048e+00   4.2779e-07   7.0241e+06
+* Input   1   2 =   3.7560e+00   3.5791e-07   1.0494e+07
+* Input   1   3 =   3.7560e+00   3.5791e-07   1.0494e+07
+* Input   1   4 =   4.5072e+00   3.5791e-07   1.2593e+07
+* Input   2   2 =   5.2584e+00   4.2779e-07   1.2292e+07
+* Input   2   3 =   5.5088e+00   3.5791e-07   1.5391e+07
+* Input   2   4 =   6.5104e+00   3.5791e-07   1.8190e+07
+* Input   3   3 =   5.2584e+00   4.2779e-07   1.2292e+07
+* Input   3   4 =   6.5104e+00   3.5791e-07   1.8190e+07
+* Input   4   4 =   7.5120e+00   4.2779e-07   1.7560e+07
+----------------------------------------------------------------------
+* Regression R-square =   1.0000e+00 (SSresid,SStotal= -4.87e-08,  4.10e+06)
+* adjusted   R-square =   1.0000e+00
+MCMC INFO: CREATING RESPONSE SURFACE FOR OUTPUT 2.
+----------------------------------------------------------------------
+Available response surface tools: 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+0. MARS 
+1. Linear regression 
+2. Quadratic regression 
+3. Cubic regression 
+4. Quartic regression 
+6. Selective polynomial regression 
+7. Gaussian process (MacKay)
+8. Gaussian process (Rasmussen)
+9. SVM-light (Joachims)
+10. Derivative-based Legendre polynomial regression
+11. Tree-based Gaussian Process
+12. MARS with bootstrap aggregating (bagging)
+13. Earth (another MARS)
+14. Sum-of-trees model
+15. Legendre polynomial regression
+16. User-defined (nonpolynomial) regression
+17. Sparse Grid polynomial regression
+18. Kriging
+19. Splines on regular grid (1D, 2D, or 3D only)
+20. K nearest neighbors 
+21. Radial Basis Function
+Please enter your choice ? INFO: rstype = regression.
+**********************************************************************
+*             Quadratic Regression Analysis
+* R-squared gives a measure of the goodness of the model.
+* R-squared should be close to 1 if it is a good model.
+* TURN ON rs_expert mode to output regression matrix.
+* TURN ON rs_expert mode to output regression function.
+* TURN ON rs_expert mode to condition covariance matrix.
+* SET print level to 4 to output data standard deviations.
+----------------------------------------------------------------------
+* Suggestion: if your parameter ranges are too high, SCALE
+*             them first using 'irerange' command in PSUADE
+*             command line mode.
+======================================================================
+* Regression: SStot  =   2.3850625000000000e+06
+* Regression: SSreg  =   2.3850625000000335e+06
+* Regression: SSres  =  -1.1514754483243905e-08
+* Regression: SSres  =   6.5456487130650122e-22 (true)
+* Regression: eps(Y) =   1.0730571660762315e-24
+* Regression WARNING: some of the coefficient variances
+*            are < 0. May spell trouble but will
+*            proceed anyway (15).
+======================================================================
+*** Note: these coefficients may not be true coefficients due
+***       to sample matrix scaling (that is, they may be scaled).
+----------------------------------------------------------------------
+*                  coefficient   std. error   t-value
+----------------------------------------------------------------------
+* Constant      =   1.2000e+02   4.5032e-07   2.6648e+08
+* Input   1     =   3.9630e+01   1.7393e-07   2.2785e+08
+* Input   2     =   2.8661e+01   1.7393e-07   1.6478e+08
+* Input   3     =   2.8661e+01   1.7393e-07   1.6478e+08
+* Input   4     =   2.2646e+01   1.7393e-07   1.3020e+08
+* Input   1   1 =   7.0112e+00   2.0805e-07   3.3700e+07
+* Input   1   2 =   3.5056e+00   1.7407e-07   2.0139e+07
+* Input   1   3 =   3.5056e+00   1.7407e-07   2.0139e+07
+* Input   1   4 =   1.5024e+00   1.7407e-07   8.6312e+06
+* Input   2   2 =   2.0032e+00   2.0805e-07   9.6285e+06
+* Input   2   3 =   4.0064e+00   1.7407e-07   2.3016e+07
+* Input   2   4 =   2.5040e+00   1.7407e-07   1.4385e+07
+* Input   3   3 =   2.0032e+00   2.0805e-07   9.6285e+06
+* Input   3   4 =   2.5040e+00   1.7407e-07   1.4385e+07
+* Input   4   4 =   1.0016e+00   2.0805e-07   4.8142e+06
+----------------------------------------------------------------------
+* Regression R-square =   1.0000e+00 (SSresid,SStotal= -1.15e-08,  2.39e+06)
+* adjusted   R-square =   1.0000e+00
+======================================================================
+*** CURRENT SETTINGS OF MCMC PARAMETERS: 
+
+MCMC Burn-in sample size      (default) = 5000
+MCMC sample increment         (default) = 10000
+MCMC no. of bins in histogram (default) = 20
+NOTE: sample increment - sample size to run before convergence check
+NOTE: histogram nBins  - define granularity of histogram bar graph
+Turn on ana_expert mode to change these default settings.
+
+MCMC Plot summary: input number to be plotted are (2):
+   Input    2
+   Input    3
+======================================================================
+Parameter   0 has uniform prior distribution.
+Parameter   1 has uniform prior distribution.
+Parameter   2 has uniform prior distribution.
+Parameter   3 has uniform prior distribution.
+======================================================================
+MCMC INFO: creating constraints, if there is any.
+     Constraints remove infeasible regions from the priors.
+     Constraints can be specified by RS constraint files.
+======================================================================
+**********************************************************************
+MCMC begins ... 
+MCMC : chain 1, iteration = 1
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 2, iteration = 1
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 3, iteration = 1
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+
+Iteration 1 summary: 
+Input = 2
+  Chain 1 mean     = 7.305232e-01
+  Chain 1 variance = 5.615923e-03
+  Chain 2 mean     = 2.376746e-01
+  Chain 2 variance = 1.107394e-02
+  Chain 3 mean     = 6.369770e-01
+  Chain 3 variance = 4.313182e-02
+  Within  chain variance W = 1.994056e-02
+  Between chain variance B = 3.425776e+02
+  Chain length             = 5000
+  Weighted average of B, W = 8.845209e-02
+  Input 2 PSRF = 2.106131e+00
+Input = 3
+  Chain 1 mean     = 2.813847e-01
+  Chain 1 variance = 7.105132e-03
+  Chain 2 mean     = 7.682586e-01
+  Chain 2 variance = 8.480582e-03
+  Chain 3 mean     = 3.737944e-01
+  Chain 3 variance = 4.358136e-02
+  Within  chain variance W = 1.972236e-02
+  Between chain variance B = 3.343233e+02
+  Chain length             = 5000
+  Weighted average of B, W = 8.658307e-02
+  Input 3 PSRF = 2.095256e+00
+MCMC: input   2 value at peak of likelihood = 1.700000e+00
+MCMC: input   2 mean    = 5.350583e-01
+MCMC: input   2 std dev = 2.561600e-01
+MCMC: input   3 value at peak of likelihood = 2.999958e-01
+MCMC: input   3 mean    = 4.744792e-01
+MCMC: input   3 std dev = 2.535727e-01
+MCMC : chain 1, iteration = 2
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 2, iteration = 2
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 3, iteration = 2
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+
+Iteration 2 summary: 
+Input = 2
+  Chain 1 mean     = 7.286543e-01
+  Chain 1 variance = 2.578040e-02
+  Chain 2 mean     = 4.865700e-01
+  Chain 2 variance = 6.493538e-02
+  Chain 3 mean     = 4.743836e-01
+  Chain 3 variance = 6.395320e-02
+  Within  chain variance W = 5.155633e-02
+  Between chain variance B = 3.085173e+02
+  Chain length             = 15000
+  Weighted average of B, W = 7.212071e-02
+  Input 2 PSRF = 1.182739e+00
+Input = 3
+  Chain 1 mean     = 2.779179e-01
+  Chain 1 variance = 2.795596e-02
+  Chain 2 mean     = 5.234418e-01
+  Chain 2 variance = 6.289055e-02
+  Chain 3 mean     = 5.354308e-01
+  Chain 3 variance = 6.394718e-02
+  Within  chain variance W = 5.159790e-02
+  Between chain variance B = 3.168465e+02
+  Chain length             = 15000
+  Weighted average of B, W = 7.271756e-02
+  Input 3 PSRF = 1.187145e+00
+MCMC: input   2 value at peak of likelihood = 1.700000e+00
+MCMC: input   2 mean    = 5.632027e-01
+MCMC: input   2 std dev = 2.554725e-01
+MCMC: input   3 value at peak of likelihood = 2.999958e-01
+MCMC: input   3 mean    = 4.455968e-01
+MCMC: input   3 std dev = 2.562772e-01
+MCMC : chain 1, iteration = 3
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 2, iteration = 3
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 3, iteration = 3
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+
+Iteration 3 summary: 
+Input = 2
+  Chain 1 mean     = 6.372594e-01
+  Chain 1 variance = 5.221022e-02
+  Chain 2 mean     = 5.258617e-01
+  Chain 2 variance = 6.512632e-02
+  Chain 3 mean     = 3.857595e-01
+  Chain 3 variance = 5.622154e-02
+  Within  chain variance W = 5.785269e-02
+  Between chain variance B = 3.970430e+02
+  Chain length             = 25000
+  Weighted average of B, W = 7.373210e-02
+  Input 2 PSRF = 1.128929e+00
+Input = 3
+  Chain 1 mean     = 3.709765e-01
+  Chain 1 variance = 5.437845e-02
+  Chain 2 mean     = 4.839554e-01
+  Chain 2 variance = 6.415989e-02
+  Chain 3 mean     = 6.228359e-01
+  Chain 3 variance = 5.473297e-02
+  Within  chain variance W = 5.775710e-02
+  Between chain variance B = 3.978549e+02
+  Chain length             = 25000
+  Weighted average of B, W = 7.366899e-02
+  Input 3 PSRF = 1.129379e+00
+MCMC: input   2 value at peak of likelihood = 3.000003e-01
+MCMC: input   2 mean    = 5.162935e-01
+MCMC: input   2 std dev = 2.616087e-01
+MCMC: input   3 value at peak of likelihood = 1.700000e+00
+MCMC: input   3 mean    = 4.925892e-01
+MCMC: input   3 std dev = 2.614673e-01
+MCMC : chain 1, iteration = 4
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 2, iteration = 4
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 3, iteration = 4
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+
+Iteration 4 summary: 
+Input = 2
+  Chain 1 mean     = 5.604561e-01
+  Chain 1 variance = 6.436627e-02
+  Chain 2 mean     = 5.536858e-01
+  Chain 2 variance = 6.246942e-02
+  Chain 3 mean     = 3.316303e-01
+  Chain 3 variance = 4.957532e-02
+  Within  chain variance W = 5.880367e-02
+  Between chain variance B = 5.933419e+02
+  Chain length             = 35000
+  Weighted average of B, W = 7.575461e-02
+  Input 2 PSRF = 1.135017e+00
+Input = 3
+  Chain 1 mean     = 4.485551e-01
+  Chain 1 variance = 6.555014e-02
+  Chain 2 mean     = 4.563543e-01
+  Chain 2 variance = 6.147148e-02
+  Chain 3 mean     = 6.748380e-01
+  Chain 3 variance = 4.739783e-02
+  Within  chain variance W = 5.813981e-02
+  Between chain variance B = 5.774995e+02
+  Chain length             = 35000
+  Weighted average of B, W = 7.463814e-02
+  Input 3 PSRF = 1.133036e+00
+MCMC: input   2 value at peak of likelihood = 3.000003e-01
+MCMC: input   2 mean    = 4.819241e-01
+MCMC: input   2 std dev = 2.647724e-01
+MCMC: input   3 value at peak of likelihood = 1.700000e+00
+MCMC: input   3 mean    = 5.265825e-01
+MCMC: input   3 std dev = 2.629426e-01
+MCMC : chain 1, iteration = 5
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 2, iteration = 5
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 3, iteration = 5
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+
+Iteration 5 summary: 
+Input = 2
+  Chain 1 mean     = 5.268706e-01
+  Chain 1 variance = 6.421382e-02
+  Chain 2 mean     = 4.998577e-01
+  Chain 2 variance = 6.774504e-02
+  Chain 3 mean     = 3.062321e-01
+  Chain 3 variance = 4.245029e-02
+  Within  chain variance W = 5.813638e-02
+  Between chain variance B = 6.517642e+02
+  Chain length             = 45000
+  Weighted average of B, W = 7.261874e-02
+  Input 2 PSRF = 1.117636e+00
+Input = 3
+  Chain 1 mean     = 4.828820e-01
+  Chain 1 variance = 6.514378e-02
+  Chain 2 mean     = 5.094467e-01
+  Chain 2 variance = 6.638576e-02
+  Chain 3 mean     = 6.997014e-01
+  Chain 3 variance = 4.025856e-02
+  Within  chain variance W = 5.726270e-02
+  Between chain variance B = 6.293493e+02
+  Chain length             = 45000
+  Weighted average of B, W = 7.124697e-02
+  Input 3 PSRF = 1.115443e+00
+MCMC: input   2 value at peak of likelihood = 3.000003e-01
+MCMC: input   2 mean    = 4.443201e-01
+MCMC: input   2 std dev = 2.603677e-01
+MCMC: input   3 value at peak of likelihood = 1.700000e+00
+MCMC: input   3 mean    = 5.640100e-01
+MCMC: input   3 std dev = 2.580419e-01
+MCMC : chain 1, iteration = 6
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 2, iteration = 6
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 3, iteration = 6
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+
+Iteration 6 summary: 
+Input = 2
+  Chain 1 mean     = 5.601990e-01
+  Chain 1 variance = 6.421650e-02
+  Chain 2 mean     = 4.631585e-01
+  Chain 2 variance = 6.536805e-02
+  Chain 3 mean     = 3.225155e-01
+  Chain 3 variance = 4.847411e-02
+  Within  chain variance W = 5.935289e-02
+  Between chain variance B = 7.854984e+02
+  Chain length             = 55000
+  Weighted average of B, W = 7.363360e-02
+  Input 2 PSRF = 1.113825e+00
+Input = 3
+  Chain 1 mean     = 4.488654e-01
+  Chain 1 variance = 6.528863e-02
+  Chain 2 mean     = 5.463416e-01
+  Chain 2 variance = 6.376779e-02
+  Chain 3 mean     = 6.834471e-01
+  Chain 3 variance = 4.624865e-02
+  Within  chain variance W = 5.843502e-02
+  Between chain variance B = 7.638412e+02
+  Chain length             = 55000
+  Weighted average of B, W = 7.232198e-02
+  Input 3 PSRF = 1.112496e+00
+MCMC: input   2 value at peak of likelihood = 3.000003e-01
+MCMC: input   2 mean    = 4.486243e-01
+MCMC: input   2 std dev = 2.624375e-01
+MCMC: input   3 value at peak of likelihood = 1.700000e+00
+MCMC: input   3 mean    = 5.595514e-01
+MCMC: input   3 std dev = 2.601789e-01
+MCMC : chain 1, iteration = 7
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 2, iteration = 7
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+MCMC : chain 3, iteration = 7
+ 10%  20%  30%  40%  50%  60%  70%  80%  90% 100%
+
+Iteration 7 summary: 
+Input = 2
+  Chain 1 mean     = 5.831476e-01
+  Chain 1 variance = 6.257837e-02
+  Chain 2 mean     = 4.990787e-01
+  Chain 2 variance = 6.830184e-02
+  Chain 3 mean     = 3.929188e-01
+  Chain 3 variance = 6.931129e-02
+  Within  chain variance W = 6.673050e-02
+  Between chain variance B = 5.906823e+02
+  Chain length             = 65000
+  Weighted average of B, W = 7.581689e-02
+  Input 2 PSRF = 1.065911e+00
+MCMC INFO : PSRF < 1.100000e+00 ==> converged.
+Input = 3
+  Chain 1 mean     = 4.254848e-01
+  Chain 1 variance = 6.402521e-02
+  Chain 2 mean     = 5.100243e-01
+  Chain 2 variance = 6.735983e-02
+  Chain 3 mean     = 6.128276e-01
+  Chain 3 variance = 6.791051e-02
+  Within  chain variance W = 6.643185e-02
+  Between chain variance B = 5.721384e+02
+  Chain length             = 65000
+  Weighted average of B, W = 7.523296e-02
+  Input 3 PSRF = 1.064182e+00
+MCMC INFO : PSRF < 1.100000e+00 ==> converged.
+MCMC: input   2 value at peak of likelihood = 3.000003e-01
+MCMC: input   2 mean    = 4.917150e-01
+MCMC: input   2 std dev = 2.697927e-01
+MCMC: input   3 value at peak of likelihood = 1.700000e+00
+MCMC: input   3 mean    = 5.161122e-01
+MCMC: input   3 std dev = 2.688853e-01
+MCMC iterations completed
+MCMC: matlabmcmc2.m file has been created.
+**********************************************************************
+AnalysisManager: analysis error = 0.00e+00 <? 1.00e+00
+psuade> 

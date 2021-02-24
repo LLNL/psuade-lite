@@ -1,0 +1,40 @@
+Bungee Problem to be run in multiprocessor mode
+
+The function is
+
+   hmin = H - 2Mg/ k sigma
+
+where H is the distance of the jumping platform to the ground
+      M is the mass (kg)
+      sigma is the number of strands in the cord
+      g is gravity (9.8m/s2)
+      k is the elastic constrant of one strand (N/m) = 1.5
+
+H is uniformly distributed [40,60]
+M = U(67 kg, 74 kg)
+sigma = U(20,40)
+
+99.99% for 4 standard deviations
+ 
+sensitivity indices
+H ~0.45
+M ~0.01
+sig ~0.54
+
+===============================================
+To run:
+                                                                                
+1. cc -o simulator simulator.c -lm
+
+# done already
+# run: psuade psuade.in to create all input files
+# mkdir 5 directories: workdir.[1-5]
+# copy psuadeApps_ct.in.X to workdir.X/psuadeApps_ct.in 
+#      (no trailing sample number)
+
+2. modify the psfile to add your current directory
+
+3. mpirun -np 5 psuade -mp psfile
+
+Note: any directory that has a 'completed' file will not be run.
+

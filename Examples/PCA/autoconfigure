@@ -1,0 +1,13 @@
+PSUADE_CONFIG
+interactive
+RLH_matlab_file = matlabmeplot.m
+MOAT_scatterplot_file = sfile
+Sobol_nsubsamples = 500
+Sobol_nLevels = 200
+FF_matlab_file = me.m
+RSFA_cross_validation
+RSFA_cv_ngroups = 10
+RSFA_test_datafile = psuadeTest
+RSFA_test_errorfile = err.m
+PSUADE_END
+

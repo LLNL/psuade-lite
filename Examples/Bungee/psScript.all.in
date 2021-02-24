@@ -1,0 +1,93 @@
+# run quartic regression
+sys cc -o simulator simulator.c -lm
+run psuade.in
+load psuadeData
+rscheck
+4
+1
+y
+10
+y
+# run mars 
+rscheck
+0
+1
+y
+10
+y
+# run rbf 
+rscheck
+21
+1
+y
+10
+y
+# run GP 
+rscheck
+8
+1
+y
+10
+y
+# run kriging 
+rscheck
+18
+1
+y
+10
+y
+# run Legendre regression
+rscheck
+15
+1
+4
+y
+10
+y
+4
+# run Selective regression
+rscheck
+6
+1
+y
+10
+n
+# run Selective regression
+rscheck
+16
+1
+10
+user_regression.py
+n
+y
+10
+10
+user_regression.py
+n
+n
+# run GradLegendre regression
+run psuadeDeriv.in
+load psuadeData
+rscheck
+10
+1
+4
+y
+10
+y
+4
+# run sparse grid regression
+load psuade.in
+set_sam_method
+8
+100
+4
+run
+rscheck
+17
+1
+# clean up
+sys rm -f simulator *.m ps_sparse_grid_info psuadeData
+quit
+
+

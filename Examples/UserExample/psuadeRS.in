@@ -1,0 +1,25 @@
+PSUADE
+INPUT
+   dimension = 6
+   variable   1 X1   = 0  2
+   variable   2 X2   = 0  2
+   variable   3 X3   = 0  2
+   variable   4 X4   = 0  2
+   variable   5 X5   = 0  2
+   variable   6 X6   = 0  2
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 210
+END
+APPLICATION
+   driver = /home/chtong/Python/Python-3.3.0/python ./testmain.py
+END
+ANALYSIS
+   printlevel 1
+END
+END

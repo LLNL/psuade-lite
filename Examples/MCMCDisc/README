@@ -1,0 +1,97 @@
+This example compares the 3 options:
+1. MCMC with discrepancy (only in terms of X1)
+2. MCMC without discrepancy
+which shows that option 3 gives the smallest posterior uncertainty.
+==================================================================
+Problem definition:
+
+Let X1 be a design parameter.
+X2 is an uncertain parameter.
+0.6 <= X1 <= 0.9
+0   <= X2 <= 1
+
+******************************************************************
+Problem:
+------------------------------------------------------------------
+
+The true model is
+
+Ye = X1 + X2 + X2 * X1 
+
+where the uncertain (calibration) parameter is X2 = 0.9
+
+Ye = X1 + 0.9 + 0.9 * X1 = 1.9 * X1 + 0.9
+------------------------------------------------------------------
+The simulation model is: 
+
+Ys = X1 + X2
+
+------------------------------------------------------------------
+Discrepancy function: (set X2 to mid point)
+
+d1 = Ye - Ys 
+   = 1.9 * X1 + 0.9 - X1 - X2
+   = 0.9 * X1 + 0.9 - X2
+
+Set X2 at midpoint = 0.5
+
+d1 = 0.9 * X1 + 0.4
+
+---------------
+add d1 to Ys gives
+
+hat(Ys) = X1 + X2 + 0.9 * X1 + 0.4 = 1.9 * X1 + X2 + 0.4
+
+If the posterior of X2 centers around 0.5, then 
+
+hat(Ys) = 1.9 * X1 + 0.9
+
+******************************************************************
+                 Steps
+------------------------------------------------------------------
+1. now run psuade < psuade.script1a
+   After it is completed, 3 files have been created:
+   (1) DiscrepancyModel1 - the sample file for the discrepancy model
+   (2) MCMCPostSample - a sample drawn from the posterior of the
+                        calibration parameter. The first parameter
+                        in the file is the design parameter X1.
+   (3) matlabmcmc2.m - for displaying the posteriors (parameter 2)
+
+2. uncertainty analysis based on the posterior
+    (The following is captured in psuade.script1b, so you can do
+     psuade < psuade.script1b instead)
+
+    psuade
+    > load simdata
+    > rs_uap
+      choose quadratic (option 2)
+      Discrepancy file: DiscrepancyModel1
+      response surface option: 2 (quadratic)
+      Sample file: MCMCPostSample
+    It should display something like:
+
+Sample mean  = 2.323119e+00
+Sample stdev = 2.379506e-01
+
+3. now run psuade < psuade.script2a (run with no discrepancy)
+    After it is completed, 3 files have been created:
+    (1) MCMCPostSample - a sample drawn from the posterior of the
+                        calibration parameter. The first parameter
+                        in the file is some design parameter X1.
+    (2) matlabmcmc2.m - for displaying the posteriors (parameter 2)
+
+4. uncertainty analysis based on the posterior
+    (The following is captured in psuade.script1b, so you can do
+     psuade < psuade.script2b instead)
+
+    psuade
+    > load simdata
+    > rs_uap
+      choose quadratic (option 2)
+      Discrepancy file: NONE
+      Sample file: MCMCPostSample
+    It should display something like:
+
+Sample mean  = 1.585929e+00
+Sample stdev = 1.342373e-02
+

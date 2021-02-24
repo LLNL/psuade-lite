@@ -1,0 +1,23 @@
+PSUADE
+INPUT
+   dimension = 1
+   variable 1 X1  =  0.0   100.0
+   PDF 1 G 3.0 2.0
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y1
+END
+METHOD
+   sampling = MC
+   num_samples = 10000
+   random_seed = 47587387
+END
+APPLICATION
+   driver = ./simulator
+END
+ANALYSIS
+   analyzer method = Moment
+   printlevel 2
+END
+END

@@ -1,0 +1,47 @@
+PSUADE
+INPUT
+   dimension = 10
+   variable 1  X1 =  0 10
+   variable 2  X2 =  0 10
+   variable 3  X3 =  0 10
+   variable 4  X4 =  0 10
+   variable 5  X5 =  0 10
+   variable 6  X6 =  0 10
+   variable 7  X7 =  0 10
+   variable 8  X8 =  0 10
+   variable 9  X9 =  0 10
+   variable 10 XA =  0 10
+   discrete 1
+END
+OUTPUT
+   dimension = 9
+   variable 1 Y
+   variable 2 Y1
+   variable 3 Y2
+   variable 4 Y3
+   variable 5 Y4
+   variable 6 Y5
+   variable 7 Y6
+   variable 8 Y7
+   variable 9 Y8
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 10
+END
+APPLICATION
+   driver = ./simulator2
+   opt_driver = ./simulator2
+END
+ANALYSIS
+   optimization method = cobyla
+#  optimization method = ouu
+   optimization num_local_minima = 1
+   optimization max_feval = 10000
+   optimization fmin = 0.0
+   optimization tolerance = 1.000000e-06
+   optimization num_fmin = 1
+   optimization print_level = 2
+   printlevel 1
+END
+END

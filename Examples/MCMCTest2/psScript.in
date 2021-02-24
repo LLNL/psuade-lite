@@ -1,0 +1,20 @@
+sys cc -o simulator simulator.c -lm
+run psuadeRS.in
+rename psuadeData simdata
+sys cc -o experiment experiment.c -lm
+sys experiment > expdata
+load simdata
+ana_expert
+printlevel 3
+rsmcmc
+expdata
+n
+2
+2
+10000
+20
+-1
+n
+n
+q
+

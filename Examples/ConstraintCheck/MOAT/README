@@ -1,0 +1,80 @@
+This example demonstrates how to perform Morris
+screening analysis in view of constraints
+Problem:
+
+Y = X1 + X2 + X3 + ... X20
+
+subject to 0 <= X1 + X2 <= 1
+
+===================================================
+The steps are:
+
+1. generate a sample expressing the constraints (X1+X2)
+   It is in genConstraint.c
+
+   so: cc -o genConstraint genConstraint.c -lm
+
+   now run: psuade psuadeGenConstraint.in
+
+   mv psuadeData constr_file
+
+2. generate a sample for X1 and X2 that obeys the constraint
+
+   psuade
+   > load constr_file
+   > moatgen
+     1   < choose linear regression >
+     0   < lower bound for constraint = 0 >
+     1   < upper bound for constraint = 1 >
+     8   < resolution: use numbers >= 6 >
+     200 < just use a large number >
+   > quit
+ 
+   At the end a file MOAT_repair_file is generated.
+
+   Next, go into the MOAT_repair_file and change
+   the variable indices on line 3. In this case,
+   since the variables are 1 and 2, so no change is
+   needed.
+
+3. generate a Morris sample but do not run
+
+   psuade psuadeMOAT.in
+
+   mv psuadeData moatSample
+
+4. repair the Morris sample
+
+   psuade
+   > load moatSample
+   > gmoatrepair MOAT_repair_file
+   > write moatSample.repaired
+   > quit
+
+   Now moatSample.repaired is ready to be run.
+
+5. run simulations
+
+   cc -o simulator simulator.c -lm
+
+   Open up moatSample.repaired, and change the 
+       driver to point to simulator.
+
+   Now do: psuade moatSample.repaired
+ 
+   mv psuadeData moatSample.repaired.done
+
+6. perform analysis
+
+   Open up moatSample.repaired.done.
+   Change the line moat_constraint to:
+     analyzer moat_constraint = constr_file indexFile 0 1
+
+   Now start psuade in command line mode:
+
+   psuade
+   > load moatSample.repaired.done
+   > moat
+
+
+   

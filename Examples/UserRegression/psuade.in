@@ -1,0 +1,27 @@
+PSUADE
+INPUT
+   dimension = 2
+   variable 1  X1  =  0.0000000000000000e+00   1.0000000000000000e+00
+   variable 2  X2  =  0.0000000000000000e+00   1.0000000000000000e+00
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 100
+END
+APPLICATION
+   driver = ./simulator
+END
+ANALYSIS
+#  analyzer method = MainEffect
+   analyzer output_id  = 1
+   analyzer rstype = MARS
+   analyzer threshold = 1.000000e-03
+   sam_expert
+   printlevel 1
+END
+END
+

@@ -1,0 +1,26 @@
+PSUADE
+INPUT
+   dimension = 2
+   variable 1 X1 =  0.0   1.0
+   variable 2 X2 =  0.0   1.0
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y1
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 500
+END
+APPLICATION
+   driver = ./simulator
+END
+ANALYSIS
+   analyzer method = RSMSobol1
+   analyzer rsfilter = psuadeFilterData indexFile 0.0 1.0
+   analyzer threshold = 1.000000e-3
+   analyzer rstype = MARS
+   analyzer output_id  = 1
+   diagnostics 2
+END
+END

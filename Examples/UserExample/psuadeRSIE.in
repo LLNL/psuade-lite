@@ -1,0 +1,28 @@
+PSUADE
+INPUT
+   dimension = 6
+   variable   1 X1   = 0  2
+   variable   2 X2   = 0  2
+   variable   3 X3   = 0  2
+   variable   4 X4   = 0  2
+   variable   5 X5   = 0  2
+   variable   6 X6   = 0  2
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y
+END
+METHOD
+   sampling = OA
+   num_samples = 48050
+   num_replications = 50
+   randomize
+END
+APPLICATION
+   driver = ./psData
+END
+ANALYSIS
+   analyzer method = TwoParamEffect
+   printlevel 1
+END
+END

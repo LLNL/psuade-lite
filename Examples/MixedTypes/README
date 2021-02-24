@@ -1,0 +1,54 @@
+This example demonstrates how to perform mixed aleatory-epistemic
+uncertainty.
+
+=================================================================
+
+Bungee Problem:
+
+The function is
+
+   hmin = H - 2Mg/ k sigma
+
+where H is the distance of the jumping platform to the ground
+      M is the mass (kg)
+      sigma is the number of strands in the cord
+      g is gravity (9.8m/s2)
+      k is the elastic constrant of one strand (N/m) = 1.5
+
+H is uniformly distributed [40,60]
+M = U(67 kg, 74 kg)
+sigma = U(20,40)
+
+99.99% for 4 standard deviations
+ 
+sensitivity indices
+H ~0.45
+M ~0.01
+sig ~0.54
+
+=================================================================
+1. generate and run a sample
+
+   cc -o simulator simulator.c -lm
+   psuade psuade.in
+   mv psuadeData psd
+
+   Now 'psd' contains the sample and the sample outputs
+
+2. Incorporate aleatory uncertainties
+
+   set variable 1 to a Gaussian distribution (50, 2)
+   set variable 2 to a Gaussian distribution (70.5, 0.7)
+   Insert these statements in the INPUT section of 'psd'
+        PDF 1 N 50 2
+        PDF 2 N 70.5 0.7
+
+3. perform analysis
+
+   psuade
+   > load psd
+   > ae_ua
+   > quit
+
+   At the end, a file is created 'matlabaeua.m'.
+

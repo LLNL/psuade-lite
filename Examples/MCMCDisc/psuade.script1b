@@ -1,0 +1,8 @@
+load simdata
+rs_uap
+2
+psDiscrepancyModel
+2
+MCMCPostSample
+q
+

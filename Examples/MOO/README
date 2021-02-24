@@ -1,0 +1,47 @@
+This is a contrite example 
+
+    minimize F(x1,x2) = alpha * f1 + (1 - alpha * f2)
+
+    f1(x1,x2) = x1*x1 + x2*x2
+    f2 = 1 - f1
+
+x1,x2 = [0 1]
+
+alpha is specified in configFile with a range
+      of [0, 1]. Since it is a linear combination
+      that is supported in psuade, no additional
+      function to combine the outputs need to be
+      provided (hence the NULL in configFile)
+moo.py computes F(x1,x2)
+psuade.in specifies the inputs and outputs
+============ how =======================
+psuade
+> mo_opt
+  psuade.in
+  moo.py <you can also use a response surface here>
+  configFile
+  11
+> quit
+
+At the end, a file psuade_moo_sample will
+be generated which has 1 input and 5 outputs
+input   - alpha
+output1 - optimal F(x1,x2) for the given alpha
+output2 - opt x1 
+output2 - opt x2 
+output4 - f1(x1) for this alpha at opt x1,x2
+output5 - f2(x2) for this alpha at opt x1,x2
+
+You can use 
+> load psuade_moo_sample
+> rs1
+  1
+  1
+  n
+  n
+> quit
+
+and use matlab to view the matlatrs1.m file
+(while shows the relationship of the optimal F
+with alpha)
+

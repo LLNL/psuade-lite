@@ -1,0 +1,85 @@
+Ishigami function
+
+Y = sin(X_1) + A sin^2(X_2) + B X_3^4 sin(X_1)
+
+X_i = U[-pi, pi]
+
+A = 7
+B = 0.1
+
+mean = 3.5
+variance = 0.1 pi^4 / 5 + 0.1^2 pi^8/18 + 1/2 + 49/8 = 13.8445
+R^2 = 0.19
+modified R^2 = 0.19
+
+sensitivity coefficient VCE(X_i)/V
+X1 = 0.3139
+X2 = 0.4424
+X3 = 0
+
+============================================================
+To run:
+------------------------------------------------------------
+cc -o simulator simulator.c -lm
+psuade psuade.in
+mv psuadeData psd
+
+============================================================
+To perform uncertainty analysis (mean, std) 
+------------------------------------------------------------
+psuade
+> load psd
+> ua
+
+============================================================
+To perform main effect analysis  
+------------------------------------------------------------
+psuade
+> load psd
+> rssobol1
+
+============================================================
+To perform total effect sensitivity analysis  
+------------------------------------------------------------
+psuade
+> load psd
+> rssoboltsi
+
+============================================================
+To perform two-way interaction effect sensitivity analysis  
+------------------------------------------------------------
+psuade
+> load psd
+> rssobolt2
+
+============================================================
+To perform group sensitivity analysis  
+Group 1: parameter 1 and 2
+Group 2: parameter 2 and 3
+Group 3: parameter 1 and 3
+These information are stored in the 'group' file
+------------------------------------------------------------
+psuade
+> load psd
+> rssobolg
+  group
+
+============================================================
+To perform response surface analysis 
+------------------------------------------------------------
+psuade
+> load psd
+> rscheck
+  <select response surface method>
+  <select output>
+  <say yes to cross validation>
+  use 10 groups
+  yes to random selection
+> quit
+
+use matlab to view the RSFA_CV_err.m file.
+The plot on the left shows the distribution of prediction errors.
+The plot on the right shows actual versus predicted values. The 
+closer all 'x' lie on the diagonal, the more accurate the predictions. 
+
+

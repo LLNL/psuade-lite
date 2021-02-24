@@ -1,0 +1,37 @@
+PSUADE
+INPUT
+   dimension = 5
+   variable 1 X1 =  -2.0000000000000000e+00   2.0000000000000000e+00
+   variable 2 X2 =  -2.0000000000000000e+00   2.0000000000000000e+00
+   variable 3 X3 =  -2.0000000000000000e+00   2.0000000000000000e+00
+   variable 4 X4 =  -2.0000000000000000e+00   2.0000000000000000e+00
+   variable 5 X5 =  -2.0000000000000000e+00   2.0000000000000000e+00
+END
+OUTPUT
+   dimension = 6
+   variable 1 Y
+   variable 2 G1
+   variable 3 G2
+   variable 4 G3
+   variable 5 G4
+   variable 6 G5
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 3
+#  randomize
+END
+APPLICATION
+   opt_driver = ./simulator_deriv
+END
+ANALYSIS
+   optimization method = lbfgs
+   optimization num_local_minima = 3
+   optimization max_feval = 10000
+   optimization fmin = 0.0
+   optimization tolerance = 1.000000e-3
+   optimization num_fmin = 1
+   optimization print_level = 1
+   printlevel 3
+END
+END

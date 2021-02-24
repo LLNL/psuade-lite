@@ -1,0 +1,94 @@
+**********************************************************
+How to use probability distributions in PSUADE
+**********************************************************
+There are two ways to perform uncertainty analysis with
+other than uniform PDFs in PSUADE:
+(1) generate a space-filling sample, run through pdfconvert
+    in command line mode to convert to desired distributions,
+    run the simulations, and then run uncertainty analysis.
+(2) generate a sample with the desired PDFs (you need to 
+    specify that the sampling method is MC though), and then
+    run the simulations, and analyze.
+
+**********************************************************
+Case 1: Lognormal distribution
+==========================================================
+Lognormal 1 variable
+
+PDF 1 L 1.0 1.0
+
+data mean and std = (4.49, 5.87)
+data skewness = 4.96
+data kurtosis = 46.5 (excess)
+
+**********************************************************
+Case 2: triangular distribution
+==========================================================
+
+PDF 1 T 0.5 0.5
+
+mean = 0.5
+stdev = sqrt(1/24) = 0.204
+
+**********************************************************
+Case 3: Normal distribution
+==========================================================
+
+PDF 1 N 1.0 1.0
+
+mean = 1.0
+stdev = 1.0
+
+**********************************************************
+Case 4: Beta distribution
+==========================================================
+
+PDF 1 B 2.0 2.0
+
+mean = 0.5
+stdev = 0.2236
+
+**********************************************************
+Case 5: Weibull distribution
+==========================================================
+
+PDF 1 W 1.0 1.5
+
+mean = 0.9027
+stdev = 0.6129
+
+**********************************************************
+Case 6: Gamma distribution
+==========================================================
+
+PDF 1 G 3.0 2.0
+
+mean = alpha / beta = 1.5
+stdev = sqrt(alpha) / beta  = 0.866
+skewness = 2 / sqrt(alpha) = 1.12
+kurtosis = 6 / alpha + 3 = 5
+ 
+**********************************************************
+Case 7: Exponential distribution
+==========================================================
+
+PDF 1 E 2.0
+
+mean = 1/lambda = 0.5
+stdev = 1/lambda = 0.5
+skewness = 2
+kurtosis = 9 
+ 
+**********************************************************
+Case 8: User distribution
+==========================================================
+PDF 1 S 
+
+run : psuade psuade8.in
+
+psuadeData. Rename psuadeData to psdata.
+
+mean should be around 2.5
+std dev should be around 1.54
+
+

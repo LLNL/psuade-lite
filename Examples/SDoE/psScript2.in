@@ -1,0 +1,23 @@
+geninputfile
+ps.in
+2
+X1
+0
+1
+X2
+0
+1
+1
+Y
+FACT
+7
+n
+NONE
+y
+load psuadeData
+printlevel 5
+doe_mmd
+5
+0
+q
+

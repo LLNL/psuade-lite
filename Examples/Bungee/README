@@ -1,0 +1,119 @@
+Bungee Problem:
+
+The function is
+
+   hmin = H - 2Mg/ k sigma
+
+where H is the distance of the jumping platform to the ground
+      M is the mass (kg)
+      sigma is the number of strands in the cord
+      g is gravity (9.8m/s2)
+      k is the elastic constrant of one strand (N/m) = 1.5
+
+H is uniformly distributed [40,60]
+M = U(67 kg, 74 kg)
+sigma = U(20,40)
+
+99.99% for 4 standard deviations
+ 
+sensitivity indices
+H ~0.45
+M ~0.01
+sig ~0.54
+
+===============================================
+To run:
+
+cd to this directory
+cc -o simulator simulator.c -lm
+psuade psuade.in
+
+(1) to perform uncertainty analysis
+
+    - rename psuadeData to psSave
+    - psuade
+      > load psSave
+      > ana_expert  <turn on expert mode for graphics>
+      > ua (or ca)
+      
+
+(2) to perform main effect analysis
+
+    - psuade
+      > load psSave
+      > rssobol1
+
+(3) to perform 2-way interaction analysis
+
+    - psuade
+      > load psSave
+      > rssobol2
+
+(4) to perform total order analysis
+
+    - psuade
+      > load psSave
+      > rssoboltsi
+
+(5) to generate plots
+
+    - psuade
+      > load psSave
+      > <use rs1, rs2, or rs3 for response surfaces, or 
+         iplot1, iplot2 .. for scatter plots>
+
+===============================================
+To experiment with user regression:
+
+cc -o simulator simulator.c -lm
+psuade psuade.in
+mv psuadeData psd
+
+psuade
+> load psd
+> rscheck
+  choose user regression
+
+  enter number of terms = 10 (see user_regression.py file)
+  enter executable = user_regression.py
+
+for codegen: edit the user function 
+===============================================
+To experiment with selective regression:
+cc -o simulator simulator.c -lm
+psuade psuade.in
+mv psuadeData psd
+
+psuade
+> load psd
+> rscheck
+  choose selective regression
+  (selective_regression_file will be detected automatically
+
+===============================================
+To experiment with Legendre regression:
+cc -o simulator simulator.c -lm
+psuade psuade.in
+
+psuade
+> load psd
+> rscheck
+  choose Legendre regression
+  enter order
+
+===============================================
+To experiment with GradLegendre regression:
+cc -o simulator simulator.c -lm
+psuade psuadeDeriv.in
+mv psuadeData psd
+
+psuade
+> load psd
+> odelete (then choose output 1 to delete)
+> write deriv
+> load psd
+> rscheck
+  choose gradLegendre
+  enter deriv as derivative file
+
+

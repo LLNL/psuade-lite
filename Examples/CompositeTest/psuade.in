@@ -1,0 +1,21 @@
+PSUADE
+INPUT
+   dimension = 2
+   variable 1 X1  =  0.4   0.6
+   variable 2 X2  =  0.4   0.6
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y
+END
+METHOD
+   sampling = LH
+   num_samples = 100000
+END
+APPLICATION
+   driver = simulator
+END
+ANALYSIS
+   printlevel 1
+END
+END

@@ -1,0 +1,41 @@
+PSUADE
+INPUT
+   dimension = 7
+   variable 1 X1 =   2      3
+   variable 2 X2 =   1      2
+   variable 3 X3 =   0      1
+   variable 4 X4 =   4      5
+   variable 5 X5 = -0.001   1
+   variable 6 X6 =   1      2
+   variable 7 X7 =   1      2
+   discrete 1
+   discrete 2
+   discrete 3
+   discrete 4
+END
+OUTPUT
+   dimension = 5
+   variable 1 Z
+   variable 2 Z1
+   variable 3 Z2
+   variable 4 Z3
+   variable 5 Z4
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 1
+END
+APPLICATION
+   opt_driver = ./simulator2
+END
+ANALYSIS
+   optimization method = ouu
+   optimization num_local_minima = 1
+   optimization max_feval = 10000
+   optimization fmin = 0.0
+   optimization tolerance = 1.000000e-06
+   optimization num_fmin = 1
+   optimization print_level = 2
+   printlevel 3
+END
+END

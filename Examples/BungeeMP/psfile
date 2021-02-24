@@ -1,0 +1,6 @@
+PSUADE_PARALLEL
+workdir = workdir
+executable = <your work directory>/BungeeMP/simulator
+num_samples = 5
+PSUADE_PARALLEL
+

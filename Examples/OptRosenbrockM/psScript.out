@@ -1,0 +1,139 @@
+**********************************************************************
+*      Welcome to PSUADE (version 1.7.10)
+**********************************************************************
+INFO: Creating a sample assuming all uncertain parameters
+      are uniformly distributed.
+PSUADE run: creating interface to user driver.
+PSUADE run: output level = 3
+PSUADE run: max parallel jobs = 1
+PSUADE run: max job wait time = 1000000 seconds
+PSUADE run: min job wait time = 1 seconds
+PSUADE run: launch interval   = 1 seconds
+PSUADE run: save frequency    = every 1000000 runs
+NOTE: if evaluation should be fast but is slow, check
+      save_frequency because it may be due to too much I/O.
+Note: use psuade_pmachine to dynamically change max jobs.
+Note: use psuade_stop to terminate gracefully.
+======================================================================
+PSUADE run: running sample, nSamples = 10 
+Launch: job =      1
+Launch: job =      2
+.Launch: job =      3
+Launch: job =      4
+Launch: job =      5
+Launch: job =      6
+Launch: job =      7
+Launch: job =      8
+Launch: job =      9
+Launch: job =     10
+
+PSUADE run: jobs completed = 10(out of 10)
+**********************************************************************
+PSUADE : Search for local minima in sample space.
+         number of samples = 10
+	 optimization starting point 1 : 
+		   0.00000000e+00
+		   0.00000000e+00
+		   0.00000000e+00
+		   0.00000000e+00
+		   0.00000000e+00
+				 Y =   4.00000000e+00
+**********************************************************************
+**********************************************************************
+*   BOBYQA Optimizer Usage Information
+======================================================================
+* - To run this optimizer in batch mode, first make sure
+*   opt_driver (in your PSUADE input file) has been set
+*   to point to your objective function evaluator.
+* - Set optimization tolerance in psuade.in file
+* - Set maximum number of iterations in psuade.in file
+* - Set num_local_minima to perform multistart optimization
+* - Set optimization print_level to give more screen outputs
+* - If opt_expert mode is turned on, the optimization history
+*   log will be turned on automatically. Previous history file
+*   (psuade_bobyqa_history) will also be reused.
+* - If your opt_driver is a response surface which has more
+*   inputs than the number of optimization inputs, you can fix
+*   some driver inputs by creating an rs_index_file and point
+*   to it in the ANALYSIS section (see user manual).
+* - In opt_expert mode, you can specialize the objective 
+*   function by creating a file called psuade_bobyqa_special
+*   in your work directory. This will allow you to create
+*   your own objective function is in the following form: 
+
+*        sum_{i=1}^m w_i O_i + sum_{j=1}^n (O_j - C_j)^2
+*
+*   where
+*   m   - number of outputs to be used to form linear sum.
+*   n   - number of outputs to form the squared term.
+*   w_i - weight of output i.
+*   C_j - constraint for output j.
+
+* psuade_bobyqa_special should have the following format: 
+*
+	PSUADE_BEGIN
+	<m>         /* m in the above formula */
+	1  <value>  /* the value of w_1 */
+	3  <value>  /* the value of w_3 */
+	...
+	<n>         /* n in the above formula */
+	2  <value>  /* the value of C_2 */
+	...
+	PSUADE_END
+======================================================================
+To reuse the simulation results (e.g. restart due to abrupt
+termination), turn on save_history and use_history optimization
+options in the ANALYSIS section. You will see a file created
+called 'psuade_bobyqa_history' afterward.
+**********************************************************************
+**********************************************************************
+PSUADE OPTIMIZATION 1 (1) : 
+	 starting X(     1) =   0.00000000e+00
+	 starting X(     2) =   0.00000000e+00
+	 starting X(     3) =   0.00000000e+00
+	 starting X(     4) =   0.00000000e+00
+	 starting X(     5) =   0.00000000e+00
+	 starting Y =   4.00000000e+00
+Bobyqa optimizer: selected output for optimization = 1
+Bobyla: setting optimization simulation driver.
+**********************************************************************
+Bobyqa optimizer: max fevals = 10000
+Bobyqa optimizer: tolerance  = 1.000000e-06
+======================================================================
+Bobyqa initial X   1 = 0.000000e+00
+Bobyqa initial X   2 = 0.000000e+00
+Bobyqa initial X   3 = 0.000000e+00
+Bobyqa initial X   4 = 0.000000e+00
+Bobyqa initial X   5 = 0.000000e+00
+Bobyqa optimizer: total number of evaluations = 346
+Bobyla INFO: reverting to original simulation driver.
+	 Bobyqa number of function evaluations = 346
+	 optimum  X(     1) =   9.99999974e-01
+	 optimum  X(     2) =   9.99999968e-01
+	 optimum  X(     3) =   9.99999944e-01
+	 optimum  X(     4) =   9.99999899e-01
+	 optimum  X(     5) =   9.99999802e-01
+			 optimum Y =   7.19319437e-14
+**********************************************************************
+	 Bobyqa total number of function evaluations = 346
+**********************************************************************
+PSUADE Optimization Results.
+PSUADE Optimization : local optima 1 (1) - 
+		X     1 =   9.99999974e-01
+		X     2 =   9.99999968e-01
+		X     3 =   9.99999944e-01
+		X     4 =   9.99999899e-01
+		X     5 =   9.99999802e-01
+			Ymin =   7.19319437e-14
+##################################################
+PSUADE OPTIMIZATION : CURRENT GLOBAL MINIMUM - 
+		X     1 =   9.99999974e-01
+		X     2 =   9.99999968e-01
+		X     3 =   9.99999944e-01
+		X     4 =   9.99999899e-01
+		X     5 =   9.99999802e-01
+			Ymin =   7.19319437e-14
+##################################################
+**********************************************************************
+PSUADE Optimization : desired minimum found.
+======================================================================

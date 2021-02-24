@@ -1,0 +1,22 @@
+PSUADE
+INPUT
+   dimension = 2
+   variable 1 X1 =  0.0   1.0
+   variable 2 X2 =  0.0   1.0
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y1
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 100
+END
+APPLICATION
+   driver = ./genConstraint
+END
+ANALYSIS
+   analyzer output_id  = 1
+   diagnostics 2
+END
+END

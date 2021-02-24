@@ -1,0 +1,7 @@
+To run this study:
+
+- first make sure the file testmain.py is executable
+- run: psuade psuadeRS.in
+- now rename psuadeData to be psData
+- now run: psuade psuadeRSME.in
+

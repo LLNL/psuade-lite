@@ -1,0 +1,32 @@
+PSUADE
+INPUT
+   dimension = 2
+   variable  1 X1 = 0      10
+   variable  2 X2 = 0      10
+   discrete  1
+END
+OUTPUT
+   dimension = 3
+   variable 1 Y
+   variable 2 C1
+   variable 3 C2
+END
+METHOD
+   sampling = LH
+   num_samples = 10
+END
+APPLICATION
+   driver = ./simulator4
+   opt_driver = ./simulator4
+END
+ANALYSIS
+   optimization method = nomad
+   optimization num_local_minima = 3
+   optimization max_feval = 10000
+#  optimization fmin = 0.0
+   optimization tolerance = 1.000000e-06
+   optimization num_fmin = 1
+   optimization print_level = 1
+   printlevel 2
+END
+END

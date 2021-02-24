@@ -1,0 +1,58 @@
+PSUADE
+INPUT
+   dimension = 30
+   variable  1 X1 = -10      10
+   variable  2 X2 = -10      10
+   variable  3 X3 = -10      10
+   variable  4 X4 = -10      10
+   variable  5 X5 = -10      10
+   variable  6 X6 = -10      10
+   variable  7 X7 = -10      10
+   variable  8 X8 = -10      10
+   variable  9 X9 = -10      10
+   variable 10 XA = -10      10
+   variable 11 XB = -10      10
+   variable 12 XC = -10      10
+   variable 13 XD = -10      10
+   variable 14 XE = -10      10
+   variable 15 XF = -10      10
+   variable 16 Y1 = -10      10
+   variable 17 Y2 = -10      10
+   variable 18 Y3 = -10      10
+   variable 19 Y4 = -10      10
+   variable 20 Y5 = -10      10
+   variable 21 Y6 = -10      10
+   variable 22 Y7 = -10      10
+   variable 23 Y8 = -10      10
+   variable 24 Y9 = -10      10
+   variable 25 YA = -10      10
+   variable 26 YB = -10      10
+   variable 27 YC = -10      10
+   variable 28 YD = -10      10
+   variable 29 YE = -10      10
+   variable 30 YF = -10      10
+END
+OUTPUT
+   dimension = 1
+   variable 1 Z
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 1
+   random_seed 414718431
+END
+APPLICATION
+   driver = ./simulator3
+   opt_driver = ./simulator3
+END
+ANALYSIS
+   optimization method = sce
+   optimization num_local_minima = 1
+   optimization max_feval = 10000
+#  optimization fmin = 0.0
+   optimization tolerance = 1.000000e-03
+   optimization num_fmin = 1
+   optimization print_level = 1
+   printlevel 2
+END
+END

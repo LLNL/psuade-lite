@@ -1,0 +1,38 @@
+PSUADE is part of the CCSI toolset which earns the R&D 100 Award in 2016
+Version 1.7.8a 
+- replace GP2; add MGP3, MRBF
+- ouu with nomad
+- commands: splot3m
+- callable functions (library mode)
+- new commands: rs1s, a_refine_cv
+- some bug fixes
+- regression models: efficient way of computing prediction variance
+- kernel density estimation: kde command
+- regression now also generates matlab interpolator
+- user manuals
+- mcmc has more features 
+
+Version 1.7.7a  (not released)
+- add nomad
+- add lbfgs into OUU
+
+Version 1.7.6a  (released in 2016)
+- lincoa
+- newuoa
+- cobyla (refashioned)
+- PLS
+- add prior heat map to MCMC
+- genHistogram needs help in genSample
+- faster regression
+
+Version 1.7.5a 
+- more enhanced MCMC
+- bug fixes
+- other enhancements
+ 
+Version 1.7.4a 
+- optimization under uncertainty
+- enhanced MCMC
+- bug fixes
+- other enhancements
+ 

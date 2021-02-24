@@ -1,0 +1,27 @@
+PSUADE
+INPUT
+   dimension = 2
+   variable 1 X1 =  0.0   1.0
+   variable 2 X2 =  0.0   1.0
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y1
+END
+METHOD
+   sampling = LH
+   num_samples = 100000
+   num_replications = 200
+END
+APPLICATION
+   driver = ./RSdata
+END
+ANALYSIS
+   analyzer method = MainEffect
+   analyzer rsfilter = psuadeFilterData indexFile 0.0 1.0
+   analyzer threshold = 1.000000e-3
+   analyzer rstype = MARS
+   analyzer output_id  = 1
+   diagnostics 2
+END
+END

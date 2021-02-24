@@ -1,0 +1,28 @@
+PSUADE
+INPUT
+   dimension = 1
+   variable 1 X1 =  0.0   1.0
+END
+OUTPUT
+   dimension = 5
+   variable 1 Y1
+   variable 2 Y2
+   variable 3 Y3
+   variable 4 Y4
+   variable 5 Y5
+END
+METHOD
+   sampling = LH
+   num_samples = 100
+END
+APPLICATION
+   driver = ./simulator
+END
+ANALYSIS
+   analyzer threshold = 1.000000e-3
+   analyzer rstype = MARS
+   analyzer output_id  = 1
+   config_file = autoconfigure
+   printlevel 4
+END
+END

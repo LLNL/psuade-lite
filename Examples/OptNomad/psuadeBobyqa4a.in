@@ -1,0 +1,29 @@
+PSUADE
+INPUT
+   dimension = 2
+   variable  1 X1 = 0      10
+   variable  2 X2 = 0      10
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y
+END
+METHOD
+   sampling = LH
+   num_samples = 10
+END
+APPLICATION
+   driver = ./simulator4a
+   opt_driver = ./simulator4a
+END
+ANALYSIS
+   optimization method = bobyqa
+   optimization num_local_minima = 1
+   optimization max_feval = 10000
+#  optimization fmin = 0.0
+   optimization tolerance = 1.000000e-06
+   optimization num_fmin = 1
+   optimization print_level = 1
+   printlevel 2
+END
+END

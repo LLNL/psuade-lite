@@ -1,0 +1,16 @@
+This directory contains the general Rosenbrock problem.
+
+F(X) = sum_{i=1}^{N-1} [(1-x_i)^2 + 100(X_{i+1} - X_i^2)^2]
+
+N >= 4
+
+local  min at (-1,1,1,1,,,,1)
+global min at (1,1,1,1,,,,1)
+
+==========================================================
+Try:
+
+- cobyla
+- bobyqa
+- others
+

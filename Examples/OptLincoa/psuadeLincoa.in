@@ -1,0 +1,36 @@
+PSUADE_IO (Note : inputs not true inputs if pdf ~=U)
+2 1 1
+1 1
+  -0.5
+  -0.5
+  0.75
+PSUADE_IO
+PSUADE
+INPUT
+   dimension = 2
+   variable 1 X1 =  -2.0000000000000000e+00   2.0000000000000000e+00
+   variable 2 X2 =  -2.0000000000000000e+00   2.0000000000000000e+00
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y1
+END
+METHOD
+   sampling = MC
+   num_samples = 1
+END
+APPLICATION
+   driver = ./simulator
+   opt_driver = ./simulator
+END
+ANALYSIS
+   optimization method = lincoa
+   optimization num_local_minima = 1
+   optimization max_feval = 10000
+   optimization fmin = 0.0
+   optimization tolerance = 1.000000e-06
+   optimization num_fmin = 1
+   optimization print_level = 0
+   printlevel 3
+END
+END

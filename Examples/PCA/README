@@ -1,0 +1,57 @@
+Principal component analysis:
+
+Given a data matrix X (N x p)
+
+standardize the data: XX_ij = (X_ij - mean_j) / sigma_j
+
+[U,S,V] = svd(XX)   (X = U S V')
+
+V(i,j) = j-th principal component of the i-th data variable
+
+form D = S' * S;
+
+D(i,i) = eigenvalue of V(i,:) == variance of component i
+              ** total variances = p
+
+plot variances and draw cutoff point ==> extract k principal components
+   Kaiser criterion for dropping: retain only factors with ev > 1
+                                  (as large as one original variable)
+   Scree test by Catell: plot eigenvalues and cut off at the place
+                         where the decrease of evs appears to level off
+   In practice, both work well
+   But Kaiser can retain too many, while Scree retains too few.
+
+
+form table:
+
+ variable/component    1    2    3 ...
+      X1              ..
+      X2              ..
+      ..
+
+ variance             ..
+ % variance           ..
+ cum variance         ..
+ P-value              ..
+
+Derive new data set:   choose k eigenvectors from V ==> VK
+                       FinalData = VK' * XX (XX mean-adjust only)
+
+PCA without dividing by sigma is eigenanalysis of the covariance matrix
+PCA with dividing by sigma is an eigenanalysis of the correlation matrix
+
+
+
+
+=======================================
+Given X (p x N)
+
+for covariance matrix C = (X-mean) * (X-mean)'
+
+eigendecomposition : C = V D V'
+
+transform to final data :  Y = V' * (X - mean)
+
+get original data back : X = V * Y + mean
+
+

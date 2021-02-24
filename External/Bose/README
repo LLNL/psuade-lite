@@ -1,0 +1,859 @@
+From: owen@stat.stanford.edu
+
+
+  These programs construct and manipulate orthogonal 
+arrays.  They were prepared by
+
+    Art Owen
+    Department of Statistics
+    Sequoia Hall
+    Stanford CA 94305
+
+  They may be freely used and shared.  This code comes
+with no warranty of any kind.  Use it at your own
+risk.
+
+  I thank the Semiconductor Research Corporation and
+the National Science Foundation for supporting this
+work.
+
+  I thank Randall Tobias of SAS Inc. for many helpful
+electronic discussions that lead to improvements in
+these programs.
+
+
+******************************************************
+*    Contents                                        *
+******************************************************    
+
+  This documentation discusses in order:
+
+     Orthogonal arrays
+     Installation of the software
+     Available prime powers
+     Array construction programs:
+       bose              OA(  q^2,       q+1,  q,  2 )
+       bush              OA(  q^3,       q+1,  q,  3 )
+       busht             OA(  q^t,       q+1,  q,  t )
+       bosebush          OA( 2q^2,      2q+1,  q,  2 )
+       bosebushl         OA( lq^2,      lq+1,  q,  2 )
+       addelkemp         OA( 2q^2,      2q+1,  q,  2 )
+       addelkemp3        OA( 2q^3, 2q^2+2q+1,  q,  2 )
+     OA input conventions
+     Array manipulation programs:
+       oarand            randomly permute symbols in each column
+       oastr             find strength of the array
+       oastr1...oastr4   check strength = 1 ... =4
+       oatriple          report triple coincidences
+       oaagree           count agreements among rows
+       oadimen           count rows, columns and symbols
+     Tips on use
+     Implementation details
+     References
+
+******************************************************
+*    Orthogonal Arrays                               *
+******************************************************    
+
+  An orthogonal array A is a matrix of n rows, k 
+columns with every element being one of q symbols
+0,...,q-1.  The array has strength t if, in every n by t
+submatrix, the q^t possible distinct rows, all appear
+the same number of times.  This number is the index
+of the array, commonly denoted lambda.  Clearly, 
+lambda*q^t=n. Geometrically, if one were to "plot" the 
+submatrix with one plotting axis for each of the t columns
+and one point in t dimensional space for each row, the
+result would be a grid of q^t distinct points.  There would
+be lambda "overstrikes" at each point of the grid.
+
+  The notation for such an array is OA( n, k, q, t ).
+
+  If n <= q^(t+1), then the n rows "should" plot as
+n distinct points in every n by t+1 dimensional subarray.
+When this fails to hold, the array has the "coincidence
+defect".
+
+  Owen (1992,199?) describes some uses for randomized
+orthogonal arrays, in numerical integration, computer
+experiments and visualization of functions.  Those
+references contain further references to the literature,
+that provide further explanations.  A strength
+1 randomized orthogonal array is a Latin hypercube
+sample, essentially so or exactly so, depending on
+the definition used for Latin hypercube sampling.
+The arrays constructed here have strength 2 or more, it
+being much easier to construct arrays of strength 1.
+
+  The randomization is achieved by independent
+uniform permutation of the symbols in each column.
+
+  To investigate a function f of d variables, one
+has to have an array with k >= d.  One may also
+have a maximum value of n in mind and a minimum value
+for the number q of distinct levels to investigate.
+It is entirely possible that no array of strength t>1
+is compatible with these conditions.  The programs
+below provide some choices to pick from, hopefully
+without too much of a compromise.
+ 
+  The constructions used are based on published
+algorithms that exploit properties of Galois fields.
+Because of this the number of levels q must be
+a prime power.  That is q = p^r where p is prime
+and r>=1 is an integer.
+
+  The Galois field arithmetic for the prime powers is
+based on tables published by Knuth and Alanen (1964)
+below.  The resulting fields have been tested by the
+methods described in Appendix 2 of that paper and
+they passed.  This is more a test of the accuracy of
+my transcription than of the original tables.
+
+******************************************************
+*    Installation                                    *
+******************************************************    
+
+  make all
+
+  Typing the above to the prompt in the directory 
+containing the C source files and the file Makefile
+should suffice to create the programs.  Typing
+
+  make cleanup
+
+should get rid of lots of object files.  It might
+make sense to move the executable files to a
+directory other than the one with the source code.
+
+******************************************************
+*    Available prime powers                          *
+******************************************************    
+
+  The designs given here require a prime power for
+the number of levels.  They presently work for the 
+following prime powers:
+
+  All Primes
+  All prime powers q = p^r where p < 50 and q < 10^9
+
+Here are some of the smaller prime powers:
+
+  Powers of 2:  4 8 16 32 64 128 256 512
+  Powers of 3:  9 27 81 243 729
+  Powers of 5:  25 125 625
+  Powers of 7:  49 343 
+  Square of 11: 121
+  Square of 13: 169
+
+Here are some useful primes:
+
+  2,3,5,7,11,13,17,19,23,29,31,37, 
+  101,251,401
+
+The first row are small primes, the second row are
+primes that are 1 more than a "round number".  The small
+primes lead to small arrays.  An array with 101 levels
+is useful for exploring a function at levels 0.00 0.01
+through 1.00.  Keep in mind that a strength 2 array on
+101 levels requires 101^2 = 10201 experimental runs,
+so it is only useful where large experiments are possible.
+
+   Note that some of these will require more
+memory than your computer has.  For example,
+with a large prime like 10663, the program knows
+the Galois field, but can't allocate enough
+memory:
+
+bose 10663
+Unable to allocate 1927'th row in an integer matrix.
+Unable to allocate space for Galois field on 10663 elements.
+Construction failed for GF(10663).
+Could not construct Galois field needed for Bose design.
+
+  The smallest prime power not covered is 53^2 = 2809.
+The smallest strength 2 array with 2809 symbols has
+2809^2 = 7890481 rows.  Therefore the missing prime powers
+are only needed in certain enormous arrays, not in the
+small ones of most practical use.  In any event there
+are some large primes and prime powers in the program
+if an enormous array is needed.
+
+  To add GF(p^r) for some new prime power p^r,
+consult Alanen and Knuth for instructions on how
+to search for an appropriate indexing polynomial,
+and for how to translate that polynomial into a
+replacement rule for "x^r".  
+
+******************************************************
+*    bose                                            *
+******************************************************    
+
+  The bose program produces OA( q^2, k, q, 2 ),  k <= q+1
+for prime powers q.  This is based on:
+    R.C. Bose (1938) Sankhya Vol 3 pp 323-338
+
+  The program needs to know q and k, in that order.
+They can be placed on the command line or in standard
+input.  If one number appears on the command line it
+is taken to be q, and k is taken to be q+1, the maximum
+possible k.
+
+  Examples:
+
+  bose 5 | oarand
+  bose 8 | oarand
+  bose 101 10 | oarand
+  echo 101 10 | bose | oarand
+
+  These produce OA( 25, 6, 5, 2), OA( 64, 9, 8, 2) and
+OA( 10201, 10, 101, 2) (twice) respectively.  The trailing
+oarand randomizes the levels of the array (see oarand below).
+  
+******************************************************
+*    bush                                            *
+******************************************************    
+
+  The bush program produces OA( q^3, k, q, 3 ),  k <= q+1
+for prime powers q.  This strength 3 construction is based on:
+
+    K.A. Bush (1952) Annals of Mathematical Statistics, Vol 23 pp 426-434
+
+  The program needs to know q and k, in that order.
+They can be placed on the command line or in standard
+input.  If one number appears on the command line it
+is taken to be q, and k is taken to be q+1, the maximum
+possible k.
+
+  Examples:
+
+  bush 4 | oarand
+  bush 7 4 | oarand
+  echo 7 4 | bush | oarand
+
+  These produce OA( 64, 5, 4, 3) and OA( 343, 4, 7, 3) (twice)
+respectively.  Compared to the Bose arrays, the strength increases
+from 2 to 3, the number of runs increases from q^2 to q^3.
+The use of oarand (see below) randomizes the levels of the array.
+
+  This construction is the most commonly used special case
+of busht given below.   
+
+******************************************************
+*    busht                                           *
+******************************************************    
+
+  The bush program produces OA( q^t, k, q, t ),  k <= q+1, t>=3,
+for prime powers q.  This strength t construction is based on:
+
+    K.A. Bush (1952) Annals of Mathematical Statistics, Vol 23 pp 426-434
+
+  The program needs to know t, q and k, in that order.
+They can be placed on the command line or in standard
+input.  If two numbers appear on the command line they
+are taken to be t and q, and k is set to q+1.
+  
+  Examples:
+
+  busht 4 8 | oarand
+  busht 4 8 5 | oarand
+  echo 4 8 5 | busht | oarand
+
+  These produce OA( 4096, 9, 8, 4) and OA( 4096, 5, 8, 4) (twice)
+respectively.  The use of oarand (see below) randomizes the levels 
+of the array.
+
+******************************************************
+*    bosebush                                        *
+******************************************************    
+
+  The bosebush program produces OA( 2q^2, k, q, 2 ),  k <= 2q+1,
+for powers of 2, q=2^r.  This construction is based on:
+
+    R.C. Bose and K.A. Bush (1952) Annals of Mathematical Statistics,
+ Vol 23 pp 508-524.
+
+  The program needs to know  q and k, in that order.
+They can be placed on the command line or in standard
+input.  If one number appears on the command line it
+is taken to be q, and k is set to 2q.  2q columns can be
+constructed without a coincidence defect.  Setting k=2q+1
+leads to an array with the coincidence defect.  Some
+triples of columns contain duplicate rows.  (The lack of
+a coincidence defect has been verified for q=2,4,8,16,32
+and k=2q.)
+  
+  Examples:
+
+  bosebush 8 | oarand
+  bosebush 16 11 | oarand
+  echo 16 11 | bosebush | oarand
+
+  These produce OA( 128, 16, 8, 2) and OA( 512, 11, 16, 2) (twice)
+respectively.  These should be randomized (see oarand below):
+The use of oarand (see below) randomizes the levels of the array.
+
+******************************************************
+*    bosebushl                                       *
+******************************************************    
+
+  The bosebushl program produces OA( lambda*q^2, k, q, 2 ),  
+k <= lambda*q+1, for prime powers q and lambda > 1.  Both q and 
+lambda must be powers of the same prime.  This construction is based on:
+
+    R.C. Bose and K.A. Bush (1952) Annals of Mathematical Statistics,
+ Vol 23 pp 508-524.
+
+  The program needs to know lambda, q and k, in that order.
+They can be placed on the command line or in standard
+input.  If two numbers appear on the command line they
+are taken to be lambda and q respectively, and k is set to 
+lambda*q.
+  
+  Examples:
+
+  bosebushl 3 9 | oarand
+  bosebushl 9 3 | oarand
+  echo 9 3 11 | bosebushl | oarand
+  bosebushl 11 11 | oarand
+  bosebushl 4 8 | oarand
+
+  These produce OA( 243, 27, 9, 2), OA( 81, 27, 3, 2),
+OA( 81, 11, 3, 2), OA( 1331, 121, 11, 2) and OA( 256, 32, 8, 2 )
+respectively.  The use of oarand (see below) randomizes the levels
+of the array.
+
+  Coincidences are harder to understand with these designs.
+For example "bosebushl 3 9" does lead to a number of triple
+coincidences, that is pairs of rows in which 3 columns agree,
+but no quadruple coincidences.  "bosebush 3 9 28" produces
+an extra column that figures in some quadruple coincidences.
+
+  The arrays produced by this program are not always the
+largest possible.  The article by Bose and Bush cited
+above describes ways of adjoining some extra columns.
+	
+  When k <= lambda*q, the program produces an array that
+is "completely resolvable".  What this means is that 
+the rows of the array may be split into lambda*q consecutive
+nonoverlapping sets of rows each of which is OA( q,k,q,1 ).
+
+******************************************************
+*    addelkemp                                       *
+******************************************************    
+
+  The addelkemp program produces OA( 2q^2, k, q, 2 ),  k <= 2q+1,
+for odd prime powers q.  Even prime powers may be produced using
+bosebush above.  
+
+This construction is based on:
+
+    S. Addelman and O. Kempthorne (1961) Annals of Mathematical Statistics,
+ Vol 32 pp 1167-1176.
+
+using "n=2" in their notation.
+
+  The program needs to know q and k, in that order.
+They can be placed on the command line or in standard
+input.  If one number appears on the command line it
+is taken to be q, and k is set to 2q.  2q columns can be
+constructed without a coincidence defect.  Setting k=2q+1
+leads to an array with the coincidence defect.  Some
+triples of columns contain duplicate rows.  (The lack of
+a coincidence defect has been verified for 
+q=2,3,4,5,7,9,11,13,17,19,23,25 and k=2q.)
+  
+  Examples:
+
+  addelkemp 9 | oarand
+  addelkemp 25 10 | oarand
+  echo 25 10 | addelkemp | oarand
+
+  These produce OA( 162, 18, 9, 2) and OA( 1250, 10, 25, 2) (twice)
+respectively.  The use of oarand (see below) randomizes the levels`
+of the array.
+
+  This construction should work for all prime powers
+q, but it failed to do so for even powers greater
+than 4.  This may have been a programming error, or
+it may have stemmed from misunderstanding of the description
+of the algorithm.  The program rejects requests with
+q=2^r for r>2.  The Bose Bush construction handles these
+cases.
+
+  The description of the construction for odd prime powers
+calls for some arithmetic involving the number 4.  In
+Galois fields with 3^r elements, there is no 4.  Replacing 4
+by 1 for these fields works when q=3,9,27 (brute force
+verification).
+
+******************************************************
+*    addelkemp3                                      *
+******************************************************    
+
+  The addelkemp3 program produces OA( 2*q^3, k, q, 2 ),  k <= 2q^2+2q+1,
+for prime powers q.  q may be an odd prime power, or q may
+be 2 or 4.
+
+This construction is based on:
+
+    S. Addelman and O. Kempthorne (1961) Annals of Mathematical Statistics,
+ Vol 32 pp 1167-1176.
+
+using "n=3" in their notation.
+
+  The program needs to know q and k, in that order.
+They can be placed on the command line or in standard
+input.  If one number appears on the command line it
+is taken to be q and k is set to 2*q.
+  
+  Examples:
+
+  addelkemp3 3 | oarand
+  addelkemp3 9 | oarand
+  echo 11 250 | addelkemp3 | oarand
+
+  These produce OA( 54, 25, 3, 2), OA( 1458, 181, 9, 2),
+and OA( 2662, 250, 11, 2 ) respectively.  The use of 
+oarand (see below) randomizes the levels of the array.
+
+  Coincidences are much harder to understand with these designs.
+For example "addelkemp3 3 9" does lead to a number of triple
+coincidences, that is pairs of rows in which 3 columns agree,
+but no quadruple coincidences.  "addelkemp  3 9 28" produces
+an extra column that figures in some quadruple coincidences.
+
+  As for addelkemp above, 4 is replaced by 1 in fields that
+do not have an element 4.  Also powers of 2 larger than 4
+are not allowed, as described above for addelkemp.
+
+******************************************************
+*    OA input conventions                            *
+******************************************************    
+
+  Programs that need to read an orthogonal array from
+standard input, require q, n and k, the numbers of
+symbols, rows and columns respectively in the array.
+The input requirements are illustrated below in terms
+of a generic program "oaprog".
+
+  If all three are given on the command line, the array
+is read as the next nk integers from standard input.
+The first k integers comprise the first row of the
+array, the next k are the second row, and so forth.  In 
+
+  oaprog 11 121 50
+
+standard input should consist of 121*50=6050 integers
+between 0 and 11-1 = 10 inclusive.  An error message
+is generated if there are too few or too many integers
+or if any of them is outside the range 0 through 10.
+
+  If only two integers are given on the command line
+as in
+
+  oaprog 11 121
+
+the program reads the number of columns from
+standard input and then starts reading the array
+as above.
+
+  If only one integer is on the command line as in
+
+  oaprog 11
+
+the program reads the numbers of rows and columns from
+standard input and then starts reading the array
+as above.
+
+  If no integers are given on the command line then
+the program starts reading the array from standard
+input and tries to guess what n, k and q are.
+The number of columns, k, is taken to be the number of
+integers read before the first newline character.
+The number of rows, n, is taken to be the number of
+lines of input before the end of file.  Each of these
+lines must have k integers and must end in aa newline.
+The number of symbols, q, is taken to be one more
+than the largest integer found on standard input.
+
+
+******************************************************
+*    oarand                                          *
+******************************************************    
+
+  This program reads an orthogonal array from standard
+input, permutes the symbols in each column and prints
+the array to standard output.  The permutations are
+uniformly distributed (all q! permutations have the same
+probability) and all columns are permuted independently.
+
+  Input is described above under OA input conventions,
+with exceptions noted below to allow passing a random
+seed.  If oarand is called twice with the same input array,
+the same permuted output will result both times, unless
+different seeds are given.
+
+  If the command line consists of 4 or more integers the
+last four integers are taken to be a random seed.
+The random number generator is a version of the
+Marsaglia-Zaman random number generator, transliterated
+into C from  FORTRAN.  The seed must be four integers
+between 1 and 168 inclusive, with not all values equal
+to 1.  
+
+  If one prefers some other random number generator
+one can replace runif() in runif.c.  In that case it is
+also likely to be necessary to change how the seed is
+read in oarand.c.
+
+  Examples:
+
+  bose 9 | oarand 
+  bose 9 | oarand 9 81 10	
+  bose 9 | oarand 9 81 10 22	
+  bose 9 | oarand 9 81 10  11 22 33 44
+  bose 17 8 | oarand 17 289 8
+  bose 17 8 | oarand 17 289 8  
+
+  These produce randomized versions of bose arrays
+OA( 81, 10, 9, 2)(four times) and OA( 289, 8, 17, 2 ) 
+(three times) respectively.  The first and second runs
+use the default seeds.  The third run uses 9 81 10 22
+as seeds, figuring out the dimension of the array
+by reading it.  If the integers 9 81 10 were meant
+to be dimensions they aren't being used that way.
+The fourth run one passes the seed information
+11 22 33 44 to the random number generator.
+
+  Note that 
+
+  bose 9 | oarand | oarand
+
+doesn't get an array independent of the one produced
+by one pass through oarand.   What it produces is
+an array with a particular random permutation applied
+twice.   Any symbols that are unchanged by the permutation
+in oarand will be unchanged by applying it twice.
+
+******************************************************
+*    oastr                                           *
+******************************************************    
+
+  This program reads an orthogonal array from standard
+input, and finds its strength by brute force computation.
+In addition to the strength t described above under
+the heading orthogonal arrays, strength 0 is taken to 
+mean that the array indeed has all its elements in the
+range 0..q-1.  
+ 
+  An array of strength t>0 is also of strength s for
+all 0 <= s < t.  The program starts testing t=0 and
+increases t until it finds t for which the array is
+not strength t.
+
+  Finding the strength of an array by brute force is
+lightning fast for small arrays but very slow for larger
+arrays.  When the job is large enough, intermediate
+results are printed so the user can decide whether or
+not to kill the job, based on how much progress is
+being made.
+
+  The function that calculates strength has an argument
+verbose.  In oastr the array strength function is
+called with verbose=2.  This prints to standard output
+a description of progress as the strength check proceeds.
+If one wants to use this function in other settings,
+calling it with verbose=1 shuts off standard output
+but leaves the warnings to standard error, and verbose=0
+shuts off all output.
+
+  Input is described above under OA input conventions.
+
+  Examples:
+
+  bosebush 8 | oastr 8 128 16 
+  bosebush 8 | oastr
+ 
+  both result in:
+
+The array has strength (at least) 0.
+The array has strength (at least) 1.
+The array has strength (at least) 2.
+The array cannot have strength 3, because the number
+of rows 128 is not a multiple of q^3 = 8^3 = 512.
+
+The array has strength 2 and no higher strength.
+
+  addelkemp 2 5 | oastr 2 8 5
+  addelkemp 2 5 | oastr
+
+  both result in:
+
+The array has strength (at least) 0.
+The array has strength (at least) 1.
+The array has strength (at least) 2.
+Array is not of strength 3.  The first violation arises for
+the number of times (A[,0],A[,2],A[,4]) = (0,0,0).
+This happened in 2 rows, it should have happened in 1 rows.
+
+The array has strength 2 and no higher strength.
+
+  You also get a warning (from addelkemp) about the
+coincidence defect in this design.  Notice that
+the program refers to the columns of the array
+starting with column 0.
+
+******************************************************
+*    oastr1, oastr2, oastr3, oastr4                  *
+******************************************************    
+
+  These are just like oastr above, except that they
+only check one strength level.
+
+  Example:
+
+  addelkemp3 9 | oastr2 9 1458 181 &
+  addelkemp3 9 | oastr2 &
+
+  where the & just puts the job in background, both 
+result in:
+
+If the array has strength 2, 1.92382e+09 comparisons will
+be required to prove it.  This might take a long time.
+This warning is triggered when more than 100000000 comparisons
+are required.  To avoid this warning increase BIGWORK in
+oa.h.  Intermediate results will be printed.
+
+
+No violation of strength 2 involves column 0.
+No violation of strength 2 involves column 1.
+No violation of strength 2 involves column 2.
+No violation of strength 2 involves column 3.
+...
+etc.
+...
+No violation of strength 2 involves column 178.
+No violation of strength 2 involves column 179.
+No violation of strength 2 involves column 180.
+The array has strength (at least) 2.
+
+
+  The advantage of using oastr2 here instead of oastr is that
+you can let it go in background without worrying that it
+will start checking strength 3 if the array turns out to
+have strength 2.
+
+******************************************************
+*    oatriple                                        *
+******************************************************    
+
+  This program reports on triple coincidences.  For all
+triples of distinct columns, it counts the number of
+distinct pairs of rows in which the triple of columns
+agree.
+
+  Input is described above under OA input conventions.
+  
+  Examples:
+
+  bosebush 8 | oatriple 8 128 16
+  bosebush 8 | oatriple 
+
+both lead to:
+
+There are 0 distinct triples of columns that agree
+in at least two distinct rows.
+
+  bosebush 8 17 | oatriple 8 128 17
+  bosebush 8 17 | oatriple
+
+both lead to:
+
+Warning: The Bose-Bush construction with ncol = 2q+1
+has a defect.  While it is still an OA(2q^2,2q+1,q,2),
+there exist some pairs of rows that agree in three columns.
+
+
+Cols 0 1 16 match in 64 distinct pairs of rows.
+Cols 2 3 16 match in 64 distinct pairs of rows.
+Cols 4 5 16 match in 64 distinct pairs of rows.
+Cols 6 7 16 match in 64 distinct pairs of rows.
+Cols 8 9 16 match in 64 distinct pairs of rows.
+Cols 10 11 16 match in 64 distinct pairs of rows.
+Cols 12 13 16 match in 64 distinct pairs of rows.
+Cols 14 15 16 match in 64 distinct pairs of rows.
+There are 8 distinct triples of columns that agree
+in at least two distinct rows.
+
+
+  The warning above is generated by bosebush.
+The rest shows that there are triple coincidences.
+Notice that they all involve the 17th column
+(which is column 16, since the first one is column 0).
+The other 16 columns can be organized into 8 pairs
+with each pair forming a triple with column 16 and
+no other triples agreeing in any row.
+
+******************************************************
+*    oaagree                                         *
+******************************************************    
+
+  This program counts the number of columns in which
+each pair of distinct rows agree.  
+
+  Input is described above under OA input conventions.  
+
+  Examples:
+
+  addelkemp3 3 | oaagree 3
+New max 0 1 7
+New max 0 9 8
+New max 0 27 9
+Checked rows <= 50 vs all other rows.
+Maximum number of columns matching for two distinct rows is 9.
+This is attained by rows 0 and 27.
+
+  addelkemp3 3 24 | oaagree 3 54 24
+New max 0 1 6
+New max 0 9 8
+Checked rows <= 50 vs all other rows.
+Maximum number of columns matching for two distinct rows is 8.
+This is attained by rows 0 and 9.
+
+  The first example finds that in OA( 54, 25, 3, 2 )
+produced by addelkemp3 there exist pairs of rows
+agreeing in 9 columns.  The first rows to attain
+this are rows 0 and 9, the 1st and 10th rows.
+
+  The second example finds that in OA( 54, 24, 3, 2 )
+produced by addelkemp3 there exist pairs of rows
+agreeing in 8 columns.   No pairs of rows agree in
+9 columns.
+
+******************************************************    
+*    oadimen                                         *
+******************************************************    
+
+  This program attempts to count the number of rows 
+columns and symbols in an orthogonal array.
+
+  Input is described above under OA input conventions.  
+
+  Example:
+
+  bosebush 4 | oadimen
+
+The array has 32 rows, 8 columns and appears
+to have 4 symbols, since the largest symbol is 3.
+
+
+******************************************************
+*     Tips on use                                    *
+******************************************************    
+
+  It is faster to generate only the columns you need.
+For example
+
+  bose 101 4 | oarand 101 10201 4
+
+only generates the first 4 columns of the array, whereas
+
+  bose 101 | oarand 101 10201 102
+
+generates 102 columns.  If you only want 4 columns the
+former saves a lot of time.
+
+  Passing the q n k on the command line is more difficult
+than letting the computer figure them out, but it
+allows more error checking.
+
+  In practical use, I would try first to use a Bose
+design.  Then I would consider either an Addelman-
+Kempthorne or Bose-Bush design to see whether it
+could accommodate the desired number of columns with
+fewer runs.  Obviously this advice depends on the
+sort of problems I expect to handle.  When a very
+large number of runs is possible a Bush design may
+work well, since it can have high strength.
+
+******************************************************
+*     References                                     *
+******************************************************    
+
+    Here are the references for the constructions used:
+
+    S. Addelman and O. Kempthorne (1961) Annals of Mathematical Statistics,
+          Vol 32 pp 1167-1176.
+    J.D. Alanen and D.E. Knuth (1964) Sankhya Ser. A Vol. 26, pp 305-328
+    R.C. Bose (1938) Sankhya Vol 3 pp 323-338
+    K.A. Bush (1952) Annals of Mathematical Statistics, Vol 23 pp 426-434
+    R.C. Bose and K.A. Bush (1952) Annals of Mathematical Statistics,
+          Vol 23 pp 508-524.
+
+    This book provides a large list of orthogonal array 
+ constructions:
+
+    Aloke Dey (1985) "Orthogonal Fractional Factorial Designs"
+          Halstead Press
+
+    These papers discuss randomized orthogonal arrays, the second
+  is being revised in parallel with development of the software
+  described here:
+ 
+    A.B. Owen (1992)  Statistica Sinica, v2 n2 pp 439-452
+    A.B. Owen (199?)  Annals of Statistics, to appear
+        "Lattice Sampling Revisited: Monte Carlo Variance of 
+        Means Over Randomized Orthogonal Arrays"
+    H.D. Patterson (1954) J.R.S.S. B 16, 140-149
+
+    These papers discuss Latin hypercube sampling:
+ 
+    M.D. McKay, W.J. Conover and R.J. Beckman (1979)
+	Technometrics 21, 239-245
+    A.B. Owen (1992) J.R.S.S. B 541-551
+    H.D. Patterson (1954) J.R.S.S. B 16, 140-149
+    M. Stein (1987) Technometrics 29, 143-151
+
+******************************************************
+*     Implementation Details                         *
+******************************************************    
+
+    Galois fields are implemented through arrays that
+store their addition and multiplication tables.  Some
+space could have been saved by using powers of primitive
+marks in place of the multiplication table.  But since
+the multiplication tables itself is only as large as
+the smallest possible column in a strength 2 array it
+was not considered to be a burden.   Subtraction and
+division are implemented through vectors of additive
+and multiplicative inverses, derived from the tables.
+The tables for GF(p^r) are constructed using a 
+representation of the field elements as polynomials in x
+with coefficients as integers modulo p and a special
+rule (derived from minimal polynomials) for handling
+products involving x^r.  These rules are taken from
+published references.  The rules have not all
+been checked for accuracy, because some of the fields are 
+very large (e.g. 16807 elements).
+
+    The functions that manipulate orthogonal arrays
+keep the arrays in integer matrices.  This might be
+a problem for applications that require enormous
+arrays.  The reason for keeping them in memory is
+that it makes it easier for others to lift out the
+functions and embed them in applications or to put
+on a GUI front end.  It was also thought that any
+array that is too large to store in a computer, is
+likely to be too large to use in integration/experimentation
+on that same computer.  The arrays are generated
+row by row, so it is not too hard to change the program
+to place the elements on an output stream as they
+are computed and do away with the storage.
+
+     The functions that test the strengh of the
+arrays may be very far from optimally fast.
+
+******************************************************        
+*    End     					     *
+******************************************************

@@ -1,0 +1,27 @@
+PSUADE
+INPUT
+   dimension = 2
+   variable 1 X1 =  0   1
+   variable 2 X2 =  0   1
+END
+OUTPUT
+   dimension = 2
+   variable 1 Y1
+   variable 2 Y2
+END
+METHOD
+   sampling = LPTAU
+   num_samples = 2000
+END
+APPLICATION
+   driver = ./moo.py
+END
+ANALYSIS
+#  analyzer method = Moment
+   analyzer output_id  = 1
+   analyzer rstype  = MARS
+   analyzer threshold  = 0.00001
+   optimization print_level = 3
+   printlevel 2
+END
+END

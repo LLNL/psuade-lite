@@ -1,0 +1,60 @@
+######################################################################
+#  Makefile for the test directory
+#---------------------------------------------------------------------
+
+PSUADE_DIR      = ../../Src
+PSUADE_INCLUDE  = -I$(PSUADE_DIR) -I$(PSUADE_DIR)/Include
+PSUADE_LIB_DIR  = -L$(PSUADE_DIR)/Lib/
+
+LAPACK_DIR = -L../../External/Lapack
+LAPACK_LIB = -llapack
+BOSE_DIR   = -L../../External/Bose
+BOSE_LIB   = -lbose
+
+MISC_LIB_SO= $(MISC_LIB:.a=.so)
+PYTH_O     = ../PythonWrapper/psuade_wrap.o
+
+#---------------------------------------------------------------------
+# linux : -lg2c
+# sgi  : -lftn
+#---------------------------------------------------------------------
+
+psuade: Psuade.o
+	$(CXX) -o psuade Psuade.o $(CXXFLAGS) $(PLOT_LIB) \
+        $(WIN_LIB) $(PSUADE_LIB_DIR) $(PSPLOT_LIB) \
+        $(METIS_DIR) $(METIS_LIB) $(MARS_DIR) $(MARS_LIB) \
+        $(SNNS_DIR) $(SNNS_LIB) $(TPROS_DIR) $(TPROS_LIB) \
+        $(GPMC_DIR) $(GPMC_LIB) $(SVM_DIR) $(SVM_LIB) \
+        $(TGP_DIR) $(TGP_LIB) $(EARTH_DIR) $(EARTH_LIB) \
+        $(COBYLA_DIR) $(COBYLA_LIB) $(TXMATH_DIR) $(TXMATH_LIB) \
+        $(MINPACK_DIR) $(MINPACK_LIB) $(APPSPACK_DIR) $(APPSPACK_LIB) \
+        $(BOBYQA_DIR) $(BOBYQA_LIB) $(R_DIR) $(R_LIB) \
+        $(BOSE_DIR) $(BOSE_LIB) $(USR_DIR) $(USR_LIB) \
+        $(LAPACK_DIR) $(LAPACK_LIB) ${MISC_LIB} -lm
+	mv psuade ../../bin
+
+so:     Psuade.o
+	$(CXX) -shared -o _psuade.so Psuade.o $(PYTH_O) $(INCPYTH) \
+        $(CXXFLAGS) $(PLOT_LIB) $(WIN_LIB) \
+        $(PSUADE_LIB_DIR) $(PSPLOT_LIB) \
+        $(METIS_DIR) $(METIS_LIB) $(MARS_DIR) $(MARS_LIB) \
+        $(SNNS_DIR) $(SNNS_LIB) $(TPROS_DIR) $(TPROS_LIB) \
+        $(GPMC_DIR) $(GPMC_LIB) $(SVM_DIR) $(SVM_LIB) \
+        $(TGP_DIR) $(TGP_LIB) $(EARTH_DIR) $(EARTH_LIB) \
+        $(COBYLA_DIR) $(COBYLA_LIB) $(TXMATH_DIR) $(TXMATH_LIB) \
+        $(MINPACK_DIR) $(MINPACK_LIB) $(APPSPACK_DIR) $(APPSPACK_LIB) \
+        $(BOBYQA_DIR) $(BOBYQA_LIB) $(R_DIR) $(R_LIB) \
+        $(BOSE_DIR) $(BOSE_LIB) $(USR_DIR) $(USR_LIB) \
+        $(LAPACK_DIR) $(LAPACK_LIB) ${MISC_LIB} -lm
+	mv _psuade.so ../../Python
+	echo "#!/bin/sh" > ../../bin/psuade
+	echo `pwd`/../../Python/psuadegui.py '"$$@"' >> ../../bin/psuade
+	chmod a+x ../../bin/psuade
+
+clean:
+	rm -rf Makefile psuade Psuade.o
+
+.SUFFIXES : .cpp
+.cpp.o :
+	$(CXX) -O -w -c $(CXXFLAGS) $(DEFINES) -D$(ARCH) $(PSUADE_INCLUDE) $<
+

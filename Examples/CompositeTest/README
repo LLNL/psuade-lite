@@ -1,0 +1,46 @@
+Two level UQ/SA:
+
+Problem has two parameters and the model is in simulator.c
+
+Initial ranges for the two inputs are [0.4, 0.6]
+
+expdata2: contains data to calibrate X_2
+
+simulator2.c and psuade2.in are used for generating a sample 
+for X_2 for use in creating a response surface for MCMC.
+
+
+===============================================
+To run:
+                                                                                
+(1) cc -o simulator2 simulator2.c -lm
+
+(2) psuade psuade2.in
+    and then rename psuadeData to psData2
+
+(3) run psuade with rsmcmc and ana_expert mode on
+    When it is done, a MCMCPostSample is generated.
+
+(4) read in MCMCPostSample using iread and then
+    write it to a file called 'sample2'
+
+(5) generate a sample for input 1 by running
+    psuade psuade1.in. Then mv psuadeData to sample1.
+  
+(6) launch psuade and run rand_draw2 to generate
+    a two-input sample. Write it to 'newSample'.
+
+(7) cc -o simulator simulator.c -lm
+
+(8) Set the driver in 'newSample' to 'simulator' 
+    (Alternatively, run a small sample on 'simulator' and
+     use that sample with response surface in replace of 
+     'simulator')
+
+(9) psuade newSample, then rename psuadeData to psData
+
+(10) psuade
+     > load psData
+     > ua
+     > me
+

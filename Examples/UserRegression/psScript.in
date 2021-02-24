@@ -1,0 +1,14 @@
+sys cc -o simulator simulator.c -lm
+sys chmod 755 user.py
+run psuade.in
+rename psuadeData simdata
+load simdata
+rscheck
+16
+1
+3
+user.py
+n
+n
+quit
+

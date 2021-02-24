@@ -1,0 +1,29 @@
+PSUADE
+INPUT
+   dimension = 3
+   variable 1 X1  =   0.0   1.0
+   variable 2 X2  =   0.0   1.0
+   variable 3 X3  =  -3.0   3.0
+# sample for input 1 is drawn from sample1 input #1
+# sample for input 2 is drawn from sample2 input #2
+   PDF 1 S sample1 1
+   PDF 2 S sample2 2
+   PDF 3 N 0 1
+END
+OUTPUT
+   dimension = 1
+   variable 1 Y
+END
+METHOD
+   sampling = MC
+   num_samples = 20000
+   random_seed = 47587387
+END
+APPLICATION
+   driver = ./simulator
+END
+ANALYSIS
+   analyzer method = Moment
+   printlevel 1
+END
+END

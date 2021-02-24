@@ -1,0 +1,15 @@
+OBJS = bobyqa.o
+
+libbobyqa.a: $(OBJS)
+	$(AR) ruv $@ $(OBJS)
+	$(RANLIB) $@
+
+bobyqa.o: bobyqa.f
+	$(F77) $(FFLAGS) -O -c bobyqa.f
+
+clean:
+	rm -f *.o ./libbobyqa.a Makefile
+
+realclean:
+	rm -f *.o ./libbobyqa.a Makefile
+

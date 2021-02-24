@@ -1,0 +1,11 @@
+#ifndef __PSUADECONFIG_H__
+#define __PSUADECONFIG_H__
+
+// the configured options and settings for Tutorial
+#define psuade_VERSION_MAJOR @psuade_VERSION_MAJOR@
+#define psuade_VERSION_MINOR @psuade_VERSION_MINOR@
+#define psuade_VERSION_PATCH @psuade_VERSION_PATCH@
+
+#define PSUADE_INSTALL_DIR "@CMAKE_INSTALL_PREFIX@"
+
+#endif

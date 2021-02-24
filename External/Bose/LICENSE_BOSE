@@ -1,0 +1,34 @@
+StatLib: http://lib.stat.cmu.edu
+
+Graphical modeling software and related items in StatLib must abide by
+the following THREE items:
+
+  (1) A short summary that gives information about the submission.
+      This should be just a few (not more than two 80 char lines)
+      lines which I will place in the index file.  It should concisely
+      describe what your submission does.  See the current S index
+      for the format and length of summaries.
+
+  (2) The information which you would like to share.  I will take
+      whatever you send me and place it in a file.  This file will
+      then be available to other people.  If your submission is just
+      one file then this should be fine. If you want to submit multiple
+      related files then please package them in a reasonable way.
+      If you can, I suggest you create a SHAR file (a Unix shell
+      archive) and include a README file that describes what the
+      submission does and how to use it and a manual page or S help
+      page. If appropriate also include a Makefile.
+      PLEASE INCLUDE YOUR NAME AND E-MAIL ADDRESS PROMINENTLY IN YOUR
+      SUBMISSION AND INDICATE IF YOU ARE WILLING TO HELP PEOPLE WHO
+      HAVE PROBLEMS.
+
+  (3) A statement (which should also be part of the submission) that
+      explicity gives permission to redistribute the software.  You
+      can retain the copyright jsut so long as you clearly state that
+      the software can be freely used for non-commercial purposes and
+      can be freely distributed.
+      If you are not the original author of the submission please make
+      sure you obtain the original author's permission before submitting
+      the software.
+
+The Statlib Archivist.
