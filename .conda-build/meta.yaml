@@ -1,0 +1,19 @@
+package:
+  name: psuade-lite
+  version: '1.8.0'
+
+source:
+  path: '..'
+requirements:
+  build:
+    - cmake
+    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ compiler('c') }}  # [not win]
+    - {{ compiler('cxx') }}  # [not win]
+    - {{ compiler('fortran') }}  # [not win]
+    - m2w64-gcc-libgfortran  # [win]
+test:
+  commands:
+    - psuade --help
