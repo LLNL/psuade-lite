@@ -1,0 +1,53 @@
+name: Build Conda package
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+defaults:
+  run:
+    # the -l flag is needed for the Conda environment to be activated properly
+    shell: bash -l {0}
+
+jobs:
+  conda-build:
+    name: Build Conda package (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-20.04
+          - windows-2019
+          - macos-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: build-psuade
+          channels: conda-forge
+      - name: Set up extra build tools for macOS
+        if: contains(matrix.os, 'macos')
+        env:
+          # these values should match the CONDA_BUILD_SYSROOT set in the conda_build_config.yaml being used
+          sdk_name: MacOSX10.9.sdk
+          base_dir: /opt
+        working-directory: /tmp
+        run: |
+          wget --quiet https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/${sdk_name}.tar.xz
+          tar -xf ${sdk_name}.tar.xz
+          sudo mkdir -p "$base_dir" && sudo mv "$sdk_name" "$base_dir"
+      - name: Run conda-build
+        working-directory: .conda-build
+        run: |
+          echo '::group::Output of "conda install/list"'
+          conda install --quiet --yes conda-build
+          conda list
+          echo '::endgroup::'
+          conda-build .
