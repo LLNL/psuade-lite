@@ -542,7 +542,8 @@ install (FILES
 #######################################################
 if( MINGW )
     get_filename_component( Mingw_Path ${CMAKE_CXX_COMPILER} PATH )
-    set( CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${Mingw_Path}/libgcc_s_dw2-1.dll ${Mingw_Path}/libstdc++-6.dll ${Mingw_Path}/libgfortran-3.dll ${Mingw_Path}/libquadmath-0.dll)
+    # libgcc_s_dw2-1.dll is not present on the Mingw versions available with conda-build, so libgcc_s_seh-1.dll is used instead
+    set( CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS ${Mingw_Path}/libgcc_s_seh-1.dll ${Mingw_Path}/libstdc++-6.dll ${Mingw_Path}/libgfortran-3.dll ${Mingw_Path}/libquadmath-0.dll)
 endif( MINGW )
 
 include( InstallRequiredSystemLibraries )
