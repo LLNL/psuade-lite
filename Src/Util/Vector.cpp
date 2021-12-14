@@ -269,6 +269,28 @@ void psVector::sort()
 }
    
 // ************************************************************************
+// compress the vector 
+// ------------------------------------------------------------------------
+void psVector::subvector(int ibeg, int iend)
+{
+  int    ii, leng;
+  double *tmpVec;
+
+  leng = iend - ibeg + 1;
+  if (leng < 0 || ibeg < 0 || iend >= length_)
+  {
+    printf("psVector subvector range ERROR: beg/end = %d %d\n",ibeg,iend);
+    exit(1);
+  }
+  tmpVec = Vec_;
+  length_ = leng;
+  Vec_ = new double[leng];
+  for (ii = ibeg; ii < iend+1; ii++) Vec_[ii-ibeg] = tmpVec[ii];
+  if (tmpVec != NULL) delete [] tmpVec;
+  return;
+}
+
+// ************************************************************************
 // add to vector
 // ------------------------------------------------------------------------
 int psVector::addElements(int leng, double *data)

@@ -261,13 +261,12 @@ void SCEOptimizer::optimize(oData *odata)
             cString = psConfig_->getParameter(pString);
             if (cString != NULL) 
             {
-               psSCEInputTypes_[ii] = 1;
-               if (printLevel > 0)
+               psSCEInputTypes_[ii] = 2;
+               //if (printLevel > 0)
                   printf("SCE input %4d is discrete\n",ii+1);
             }
          }
       }
-      
    }
    isum = 0;
    for (ii = 0; ii < nInputs; ii++) isum += psSCEInputTypes_[ii];

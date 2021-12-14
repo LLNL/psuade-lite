@@ -257,7 +257,7 @@ void MocInit2WayPartition(CtrlType *, GraphType *, float *, float);
 void MocGrowBisection(CtrlType *, GraphType *, float *, float);
 void MocRandomBisection(CtrlType *, GraphType *, float *, float);
 void MocInit2WayBalance(CtrlType *, GraphType *, float *);
-int SelectQueueoneWay(int, float *, float *, int, PQueueType [MAXNCON][2]);
+int SelectQueueOneWay(int, float *, float *, int, PQueueType [MAXNCON][2]);
 
 /* minitpart2.c */
 void MocInit2WayPartition2(CtrlType *, GraphType *, float *, float *);
@@ -432,7 +432,7 @@ int *ismalloc(int, int, char *);
 idxtype *idxsmalloc(int, idxtype, char *);
 void *GKmalloc(int, char *);
 #endif
-/*void GKfree(void **,...); */
+void GKfree(void **,...); 
 int *iset(int n, int val, int *x);
 idxtype *idxset(int n, idxtype val, idxtype *x);
 float *sset(int n, float val, float *x);

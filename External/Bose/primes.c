@@ -37,7 +37,7 @@ work.
 
 */
 
-isprime( p )
+int isprime( p )
 int p;
 {
 int k;
@@ -54,11 +54,12 @@ for(  k=2; k< sqrt( (double) (p+1) ); k++  )
 return 1;
 }
 
-ispcheck()
+int ispcheck()
 {
 int q;
 for(  q=1; q<2000; q++  )
   if(  isprime(q)  )printf("%d\n",q);
+return 1;
 }
 
 
@@ -100,7 +101,7 @@ while( 1 ){
 }
 }
 
-isprimepow( q )
+int isprimepow( q )
 int q;
 {
 int p,n,ispp;
@@ -114,7 +115,7 @@ int a,b;
 {return (int) pow( (double) a, (double) b );}
 
 
-fqpncheck()
+int fqpncheck()
 {
 int q, p, n, ispp;
 
@@ -123,5 +124,6 @@ for(  q=0; q<=20000; q++  ){
   if(  ispp  )
     printf("%5d %5d %5d\n",q,p,n);
 }
+return 1;
 }
 

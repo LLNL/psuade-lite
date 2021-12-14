@@ -1,9 +1,8 @@
 *****************************************************************************
-Copyright (c) 2021   Lawrence Livermore National Security, LLC.
+Copyright (c) 2007   Lawrence Livermore National Security, LLC.
 Produced at the Lawrence Livermore National Laboratory.
 Written by the PSUADE team.
 All rights reserved.
-LLNL-CODE- 818495
 
 Please see the LICENCE file for the copyright notice, disclaimer, 
 contact information and the GNU Lesser General Public License.
@@ -32,7 +31,7 @@ is also available online from http://lib.stat.cmu.edu/graphmod/submissions.
 
 *****************************************************************************
 Author:      Charles Tong
-Affiliation: Lawrence Livermore National Laboratory
+Affiliation: Lawerence Livermore National Laboratory
              Center for Applied Scientific Computing
 Date:        2013
 *****************************************************************************

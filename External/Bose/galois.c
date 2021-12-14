@@ -41,18 +41,19 @@ work.
 
 /*---------------------------------------------------------------*/
 
-GF_poly_sum( p,n,p1,p2,sum )
+int GF_poly_sum( p,n,p1,p2,sum )
 int  n,p,*p1,*p2,*sum;
 {
 int i;
 
 for(  i=0; i<n; i++  )
   sum[i] = (p1[i]+p2[i]) % p;
+return 1;
 }
 
 /*---------------------------------------------------------------*/
 
-GF_poly_prod( p,n,xton,p1,p2,prod )
+int GF_poly_prod( p,n,xton,p1,p2,prod )
 /*
   Set prod = p1*p2 with coefficients modulo p, and x^n replaced
 by polynomial xton.
@@ -75,6 +76,7 @@ for(  i=0; i<n; i++  )
   prod[i] = longprod[i] % p;
 
 free_ivector(longprod,0,2*n-2);
+return 1;
 }
 
 /*---------------------------------------------------------------*/
@@ -97,7 +99,7 @@ return ans;
 
 #define GFPUNT {fprintf(stderr,"Unable to allocate space for Galois field on %d elements.\n",q);return 0;}
 
-GF_ready( gf,p,n,xton )
+int GF_ready( gf,p,n,xton )
 /* 
    Make ready the Galois Field
 */
@@ -180,7 +182,7 @@ return 1;
 
 /*---------------------------------------------------------------*/
 
-GF_print( gf )
+int GF_print( gf )
 
 struct GF *gf;
 {
@@ -227,11 +229,12 @@ for(  i=0; i<q; i++  )
 printf("\n\nGF(%d) Square roots\n",q);
 for(  i=0; i<q; i++  )
   printf(" %3d %3d\n",i,gf->root[i]);
+return 1;
 }
 
 /*---------------------------------------------------------------*/
 
-GF_free( gf )
+int GF_free( gf )
 /* 
    Deallocate the Galois Field
 */
@@ -250,4 +253,5 @@ free_ivector(gf->inv,0,q-1);
 free_imatrix(gf->times,0,q-1,0,q-1);
 free_imatrix(gf->plus,0,q-1,0,q-1);
 free_ivector(gf->xton,0,n-1);
+return 1;
 }

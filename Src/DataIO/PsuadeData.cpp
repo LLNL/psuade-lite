@@ -28,7 +28,6 @@
 #include <assert.h>
 #include <algorithm>
 #include <string>
-#include <math.h>  // isnan()
 #include "dtype.h"
 #include "PsuadeUtil.h"
 #include "sysdef.h"
@@ -40,11 +39,6 @@
 
 #define psmin(a,b) (((a)<(b)) ? (a) : (b))
 #define psmax(a,b) (((a)<(b)) ? (b) : (a))
-
-#if defined(CONDA_BUILD_M2W64_TOOLCHAIN)
-using std::isnan;
-#endif
-
 // ************************************************************************
 // global variables 
 // ------------------------------------------------------------------------ 

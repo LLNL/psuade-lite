@@ -41,7 +41,7 @@ work.
 */
 
 
-bosecheck( q,ncol )
+int bosecheck( q,ncol )
 int q, ncol;
 {
 if(  ncol > q+1  ){
@@ -57,7 +57,7 @@ return 1;
 }
 
 
-bose( gf, A, ncol )
+int bose( gf, A, ncol )
 struct GF *gf;
 int    **A, ncol;
 {
@@ -78,7 +78,7 @@ for(  j=0; j<q; j++  ){
 return 1;
 }
 
-itopoly( n,q,d,coef )
+int itopoly( n,q,d,coef )
 int  n,q,d,*coef;
 {
 int i;
@@ -87,10 +87,11 @@ for(  i=0; i<=d; i++  ){
   coef[i] = n % q;
   n = n/q;
 }
+return 1;
 }
 
 
-polyeval( gf, d, poly, arg, value )
+int polyeval( gf, d, poly, arg, value )
 /*  find  value = poly(arg) where poly is a polynomial of degree d  
     and all the arithmetic takes place in the given Galois field.*/
 
@@ -104,9 +105,10 @@ for(  i= d; i>=0; i--  )  /* Horner's rule */
   ans = gf->plus[  gf->times[ans][arg]  ][  poly[i] ];
 
 *value = ans;
+return 1;
 }
 
-bushcheck(q,str,ncol)
+int bushcheck(q,str,ncol)
 int q,str,ncol;
 {
 if(  ncol > q+1  ){
@@ -132,7 +134,7 @@ return 1;
 }
 
 
-bush( gf, A, str, ncol  )
+int bush( gf, A, str, ncol  )
 struct GF *gf;
 int       **A, str, ncol;
 {
@@ -159,7 +161,7 @@ return 1;
 }
 
 
-addelkempcheck( q,p,ncol )
+int addelkempcheck( q,p,ncol )
 int  q,p,ncol;
 {
 
@@ -188,7 +190,7 @@ return 1;
 }
 
 
-addelkemp( gf, A, ncol )
+int addelkemp( gf, A, ncol )
 /* Implement Addelman and Kempthorne's 1961 A.M.S. method with n=2 */
 struct GF *gf;
 int    ncol, **A;
@@ -255,7 +257,7 @@ return 1;
 }
 
 
-bosebushcheck( q,p,ncol  )
+int bosebushcheck( q,p,ncol  )
 int  q,p,ncol;
 {
 
@@ -278,7 +280,7 @@ if(  ncol == 2*q+1  ){
 return 1;
 }
 
-bosebush( gf, B, ncol )
+int bosebush( gf, B, ncol )
 /* Implement Bose and Bush's 1952 A.M.S. method with p=2, u=1 */
 struct GF *gf;
 int **B;
@@ -322,7 +324,7 @@ return 1;
 }
   
   
-bosebushlcheck( s,p,lam,ncol  )
+int bosebushlcheck( s,p,lam,ncol  )
 int  s,p,lam,ncol;
 {
 
@@ -346,7 +348,7 @@ if(  ncol == lam*s+1  ){
 return 1;
 }
 
-bosebushl( gf, lam, B, ncol )
+int bosebushl( gf, lam, B, ncol )
 /* Implement Bose and Bush's 1952 A.M.S. method with given lambda */
 struct GF *gf;
 int **B, lam;

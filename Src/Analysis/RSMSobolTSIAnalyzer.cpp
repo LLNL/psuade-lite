@@ -1143,7 +1143,7 @@ double RSMSobolTSIAnalyzer::analyze3(aData &adata)
   vecInpStdvs1.setLength(nInputs);
   vecInpPDFs1.setLength(nInputs);
   vecSamPtsND.setLength(nSubSamples*nInputs*nInputs);
-
+  int allUPDFs = 0;
   for (ii = 0; ii < nInputs; ii++)
   {
     if (isScreenDumpModeOn())
@@ -1153,18 +1153,21 @@ double RSMSobolTSIAnalyzer::analyze3(aData &adata)
     corFlag = 0;
     for (jj = 0; jj < nInputs; jj++)
       if (ii != jj && corMatp->getEntry(ii,jj) != 0.0) corFlag = 1;
+    allUPDFs = 0;
     if (corFlag == 0)
     {
-      for (jj = 0; jj < nInputs; jj++) corFlag += pdfFlags[jj];
-      if (corFlag == 0) corFlag = 1;
-      else              corFlag = 0;
+      for (jj = 0; jj < nInputs; jj++) allUPDFs += pdfFlags[jj];
+      if (allUPDFs == 0) allUPDFs = 1;
     }
       
-    if (corFlag == 0)
+    if (corFlag == 0 && allUPDFs == 0)
     {
       if (isScreenDumpModeOn())
+      {
         printOutTS(PL_DETAIL,
-           "RSMSobolTSI: create samples (no input correlation)\n");
+           "RSMSobolTSI: create sample (PDFs not uniform but )\n");
+        printOutTS(PL_DETAIL, "no cross correlation)\n");
+      }
       corMat1.setDim(nInputs-1, nInputs-1);
       for (jj = 0; jj < ii; jj++)
       {
@@ -1217,9 +1220,13 @@ double RSMSobolTSIAnalyzer::analyze3(aData &adata)
     }
     else
     {
-      if (isScreenDumpModeOn())
+      if (isScreenDumpModeOn() && corFlag == 1)
         printOutTS(PL_DETAIL,
-            "RSMSobolTSI: create samples (has input correlation)\n");
+          "RSMSobolTSI: create sample (correlation: %d and the rest)\n",
+          ii+1);
+      if (isScreenDumpModeOn() && allUPDFs == 1)
+        printOutTS(PL_DETAIL,
+           "RSMSobolTSI: create sample (All uniform PDFs)\n");
       if (nInputs > 51)
            sampler = SamplingCreateFromID(PSUADE_SAMP_LHS);
       else sampler = SamplingCreateFromID(PSUADE_SAMP_LPTAU);
@@ -1271,6 +1278,11 @@ double RSMSobolTSIAnalyzer::analyze3(aData &adata)
                  ii+1);
     if (isScreenDumpModeOn())
       printOutTS(PL_DETAIL,"             Preparing sample\n"); 
+
+    corFlag = 0;
+    for (jj = 0; jj < nInputs; jj++)
+      if (ii != jj && corMatp->getEntry(ii,jj) != 0.0) corFlag = 1;
+
     for (jj = 0; jj < nSubSamples; jj++)
     {
       offset = jj * nLevels * nInputs;
