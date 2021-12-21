@@ -18600,15 +18600,36 @@ int PsuadeBase::interpretInteractive()
         }
         int saveMode = psInteractive_;
         psInteractive_ = 0;
-        status = OptimizerSearch(psIO,funcIO,matOptData.getMatrix2D(),
-                                 &nInitX);
+        psIVector vecBestSet;
+        vecBestSet.setLength(numSelect);
+        double bestVal = PSUADE_UNDEFINED;
+        for (kk = 0; kk < numStarts; kk++)
+        {
+          if (numStarts > 1)
+          {
+            printf("START %d (out of %d)\n", kk+1, numStarts);
+            for (ii = 0; ii < numSelect; ii++)
+            {
+              ddata = PSUADE_rand() % nCand + 1;
+              matOptData.setEntry(0, ii, ddata);
+            }
+          }
+          status = OptimizerSearch(psIO,funcIO,matOptData.getMatrix2D(),
+                                   &nInitX);
+          if (matOptData.getEntry(3,0) < bestVal)
+          {
+            for (ii = 0; ii < numSelect; ii++)
+              vecBestSet[ii] = (int) matOptData.getEntry(2,ii);
+            bestVal = matOptData.getEntry(3,0);
+          }
+        }
         psInteractive_ = saveMode;
         printAsterisks(PL_INFO, 0);
         if (bayesMode == 0) printf("odoeu_foptn best selection = ");
         else                printf("odoeu_boptn best selection = ");
         for (ii = 0; ii < numSelect; ii++)
-          printf("%d ", (int) matOptData.getEntry(2,ii));
-        printf(" (optimal value = %e)\n",matOptData.getEntry(3,0));
+          printf("%d ", vecBestSet[ii]);
+        printf(" (optimal value = %e)\n",bestVal);
         printAsterisks(PL_INFO, 0);
         for (ii = 0; ii < numSelect; ii++)
         {

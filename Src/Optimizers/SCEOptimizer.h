@@ -36,6 +36,9 @@
 class SCEOptimizer : public Optimizer
 {
    int nComplex_;
+   int psSCEnInputs_;
+   int *psSCEInputTypes_;
+
 public:
 
    /** constructor */

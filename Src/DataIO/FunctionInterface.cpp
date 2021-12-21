@@ -45,6 +45,7 @@
 #include "ProbMatrix.h"
 #include "MCMCAnalyzer.h"
 #include "mData.h"
+#define PABS(x)  ((x) > 0 ? x : -(x))
 
 // ************************************************************************
 // Constructor 
@@ -2472,6 +2473,7 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
     vecMCT.setLength(nUInps);
 
     //**/ the process is repeated for each prior sample
+    matGrad.setDim(nUInps, nCandidates);
     for (ss = 0; ss < priorNR; ss++)
     {
       //**/ --- first stuff the prior sample into vecXT
@@ -2485,7 +2487,6 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
         }
       }
       //**/ initialize matGrad
-      matGrad.setDim(nUInps, nCandidates);
 
       //**/ fille matGrad with gradient wrt uncertain
       //**/ parameters for each candidate point
@@ -2515,25 +2516,42 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
           {
             ind = vecIT[jj] - 1;
             dtmp = vecXT[jj];
-            vecXT[jj] *= (1.0 + 1e-8);
+            vecXT[jj] *= (1.0 + 1e-6);
             rsPtrs[0]->evaluatePoint(iOne,vecXT.getDVector(),&ddata);
             //**/ finite difference delta Y wrt theta_jj for 
             //**/ candidate cc
             ddata = (ddata - vecYT[0]) / (vecXT[jj] - dtmp);
             vecXT[jj] = dtmp;
+            ddata += matGrad.getEntry(ind, cc);
             matGrad.setEntry(ind, cc, ddata); 
           }
         }
       } /* cc for nCandidates */
+    }
 
-      //**/ --- now compute information matrix (Grad * Grad^T) 
-      //**/ --- covariance matrix ~ inv(Grad * Grad^T)
-      matGradT = matGrad;
-      matGradT.transpose();
-      matGrad.matmult(matGradT, matCovInv);
-      ddata = matCovInv.computeDeterminant(); 
-      if (ddata != 0)
-        DMetric2 += (1.0 / matCovInv.computeDeterminant()); 
+    //**/ --- now compute information matrix (Grad * Grad^T) 
+    //**/ --- covariance matrix ~ inv(Grad * Grad^T)
+    matGradT = matGrad;
+    matGradT.transpose();
+    matGrad.matmult(matGradT, matCovInv);
+    ddata = matCovInv.computeDeterminant(); 
+    if (PABS(ddata) < 1e-16) 
+    {
+      printf("ERROR: singular Fisher matrix.\n");
+      if (printLevel_ > 0)
+      {
+        printf("Current Fisher matrix:\n");
+        matCovInv.print();
+      }
+      GMetric2 = PSUADE_UNDEFINED;
+      IMetric2 = PSUADE_UNDEFINED;
+      AMetric2 = PSUADE_UNDEFINED;
+      DMetric2 = PSUADE_UNDEFINED;
+      EMetric2 = PSUADE_UNDEFINED;
+    }
+    else
+    {
+      DMetric2 += (1.0 / matCovInv.computeDeterminant()); 
 
       //**/ --- now get back the covariance matrix by inversion
       //**/ --- and compute A metric
@@ -2569,7 +2587,7 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
           //**/ --- evaluate function and compute derivatives too
           rsPtrs[0]->evaluatePoint(iOne,vecXT.getDVector(),&ddata);
           vecYT[0] = ddata;
-
+  
           //**/ compute partial y(theta) /partial theta_j for
           //**/ evaluation point cc
           vecCT.setLength(nUInps);
@@ -2598,11 +2616,6 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
         GMetric2 += GMetric2T;
       }
     }
-    IMetric2 /= (double) priorNR;
-    GMetric2 /= (double) priorNR;
-    DMetric2 /= (double) priorNR;
-    AMetric2 /= (double) priorNR;
-    EMetric2 /= (double) priorNR;
 
     //**/ if it is called by odoeu_feval, display information
     if (nInputsIn == 0)

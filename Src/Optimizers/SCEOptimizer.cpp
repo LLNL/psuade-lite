@@ -45,8 +45,6 @@ int     psSCENSaved_=0;
 double  psSCESaveX_[psSCEMaxSaved_*10];
 double  psSCESaveY_[psSCEMaxSaved_];
 void    *psSCEObj_=NULL;
-int     *psSCEInputTypes_=NULL;
-int     psSCEnInputs_=0;
 #define psSCEnHist_ 10
 double  psSCEHistory_[psSCEnHist_];
 int     psSCEHistCnt_=0;
@@ -201,7 +199,9 @@ extern "C"
 // ------------------------------------------------------------------------
 SCEOptimizer::SCEOptimizer()
 {
-   nComplex_ = 1;
+  nComplex_ = 1;
+  psSCEnInputs_ = 0;
+  psSCEInputTypes_ = NULL;
 }
 
 // ************************************************************************
@@ -209,7 +209,8 @@ SCEOptimizer::SCEOptimizer()
 // ------------------------------------------------------------------------
 SCEOptimizer::~SCEOptimizer()
 {
-   if (psSCEInputTypes_ != NULL) delete [] psSCEInputTypes_;
+  if (psSCEInputTypes_ != NULL) delete [] psSCEInputTypes_;
+  psSCEInputTypes_ = NULL;
 }
 
 // ************************************************************************
@@ -251,6 +252,7 @@ void SCEOptimizer::optimize(oData *odata)
 
    if (psSCEnInputs_ == 0)
    {
+      if (psSCEInputTypes_ != NULL) delete [] psSCEInputTypes_;
       psSCEInputTypes_ = new int[nInputs];
       for (ii = 0; ii < nInputs; ii++) psSCEInputTypes_[ii] = 0;
       if (psConfig_ != NULL)
@@ -262,7 +264,7 @@ void SCEOptimizer::optimize(oData *odata)
             if (cString != NULL) 
             {
                psSCEInputTypes_[ii] = 2;
-               //if (printLevel > 0)
+               if (printLevel > 0)
                   printf("SCE input %4d is discrete\n",ii+1);
             }
          }
@@ -272,6 +274,8 @@ void SCEOptimizer::optimize(oData *odata)
    for (ii = 0; ii < nInputs; ii++) isum += psSCEInputTypes_[ii];
    if (isum == 0 && psSCEnInputs_ == 0)
    {
+      if (psSCEInputTypes_ != NULL) delete [] psSCEInputTypes_;
+      psSCEInputTypes_ = NULL;
       printf("SCE can solve either \n");
       printf("1. continuous \n");
       printf("2. mixed-integer optimization.\n");
@@ -619,8 +623,6 @@ void SCEOptimizer::optimize(oData *odata)
       printf("Normalized geometric range = %e\n", geoRange);
       printf("Calculated global optimum = %e\n", bestf);
    }
-
-   psSCEnInputs_ = nInputs;
    if (psInteractive_ != 0 && printLevel > 0)
    {
       printf("SCEOptimizer: number of function evaluations = %d\n",

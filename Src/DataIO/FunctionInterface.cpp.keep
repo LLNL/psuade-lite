@@ -1564,6 +1564,7 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
                2*nOuts+nInps-nUInps);
         exit(1);
       }
+#if 0
       if (matCandidates.ncols() == 2*nOuts+nInps-nUInps)
       {
         for (ii = 0; ii < nOuts; ii++)
@@ -1587,6 +1588,7 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
           }
         }
       }
+#endif
 
       //**/ --- read evaluation set (for G and I) ==> matEvalSet
       if (whichLocalFunction_ == 20 || whichLocalFunction_ == 21)
@@ -1811,11 +1813,7 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
         //**/ get experimental mean/std from user 
         dmean = matCandidates.getEntry(ind2,nDesInps+jj*2);
         matExpMeans.setEntry(ii,jj,dmean);
-        //**/ FEB 2021: set std dev = 0.1 * mean 
-        //ddata = matCandidates.getEntry(ind2,nDesInps+jj*2+1);
-        ddata = 0.2 * dmean;
-        if      (ddata < 0)  ddata = - ddata;
-        else if (ddata == 0) ddata = 0.1;
+        ddata = matCandidates.getEntry(ind2,nDesInps+jj*2+1);
         matExpStds.setEntry(ii,jj,ddata);
       }
     }
@@ -2523,6 +2521,7 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
             //**/ candidate cc
             ddata = (ddata - vecYT[0]) / (vecXT[jj] - dtmp);
             vecXT[jj] = dtmp;
+            if (ddata == 0 && ind == cc) ddata = 1e-15;
             matGrad.setEntry(ind, cc, ddata); 
           }
         }

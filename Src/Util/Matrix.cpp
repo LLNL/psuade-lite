@@ -1133,6 +1133,7 @@ int psMatrix::computeInverse(psMatrix &inverse)
   {
     printf("psMatrix computeInverse ERROR: failed in LU factorization\n");
     delete [] localMatrix;
+    print();
     return status;
   }
   dgetri_(&nRows_, localMatrix, &nRows_, ipiv, work, &lwork, &status);
