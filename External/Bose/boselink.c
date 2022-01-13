@@ -104,9 +104,9 @@ int bose_link( int n, int ninputs, int str, int ***AA )
       } 
       if(  !GF_getfield( nsym, &gf)  )
       {
-         fprintf(stderr,"Could not construct Galois field needed\n");
+         fprintf(stderr,"Could not construct Galois field needed ");
          fprintf(stderr,"for Bose design.\n");
-         exit(1);
+         return -1;
       }
       nsamples = nsym * nsym;
       A = imatrix( 0, nsamples-1, 0, ninputs-1  );
@@ -119,7 +119,7 @@ int bose_link( int n, int ninputs, int str, int ***AA )
       {
          fprintf(stderr,"Unable to construct Bose design q=%d,",nsym);
          fprintf(stderr," ninputs=%d.\n", ninputs);
-         exit(1);
+         return -1;
       }
       else
       {
@@ -127,5 +127,6 @@ int bose_link( int n, int ninputs, int str, int ***AA )
          return nsamples;
       }
    }
+   return 0;
 }
 

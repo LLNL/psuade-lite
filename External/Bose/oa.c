@@ -42,13 +42,7 @@ int  **imatrix(), *ivector();
 
 /*  OUTPUT    OUTPUT    OUTPUT    OUTPUT    OUTPUT    OUTPUT    OUTPUT  */
 
-OA_put( A,n,k,q )
-int **A, n, k, q;
-{
-OA_fput( stdout,A,n,k,q );
-}
-
-OA_fput( stream,A,n,k,q )
+int OA_fput( stream,A,n,k,q )
 FILE *stream;
 int **A, n, k, q;
 {
@@ -64,18 +58,20 @@ if(  q < 0     )format = "%d%s";
 for(  i=0; i<n; i++  )
 for(  j=0; j<k; j++  )
   fprintf(stream,format,A[i][j],(j==k-1)?"\n":" ");
+return 1;
+}
+
+int OA_put( A,n,k,q )
+int **A, n, k, q;
+{
+OA_fput( stdout,A,n,k,q );
+return 1;
 }
 
 
 /*  INPUT    INPUT    INPUT    INPUT    INPUT    INPUT    INPUT    INPUT  */
 
-OA_get( A,n,k,q, eof_assert )
-int **A, n, k, q, eof_assert;
-{
-return OA_fget( stdin,A,n,k,q,eof_assert );
-}
-
-OA_fget( stream,A,n,k,q,eof_assert )
+int OA_fget( stream,A,n,k,q,eof_assert )
 FILE *stream;
 int **A, n, k, q, eof_assert;
 {
@@ -105,6 +101,12 @@ if(  eof_assert  &&  fscanf(stream,"%d",&eof_assert) != EOF  ){
 return 1;
 }
 
+int OA_get( A,n,k,q, eof_assert )
+int **A, n, k, q, eof_assert;
+{
+return OA_fget( stdin,A,n,k,q,eof_assert );
+}
+
 /*  READ    READ    READ    READ    READ    READ    READ    READ    READ  */
 
 /*  Read array and determine dimensions.   Inspired by approach
@@ -114,14 +116,7 @@ taken in Xgobi.  */
 #define ROWINC 1000
 int line0[ MAXK ];
 
-OA_read( A,n,k,q )
-int ***A, *n, *k, *q;
-{
-return OA_fread( stdin,A,n,k,q );
-}
-
-
-OA_fread( stream,A,n,k,q )
+int OA_fread( stream,A,n,k,q )
 FILE *stream;
 int ***A, *n, *k, *q;
 {
@@ -189,9 +184,16 @@ for(  j=0; j<*k; j++  )
 return 1;
 }
 
+int OA_read( A,n,k,q )
+int ***A, *n, *k, *q;
+{
+return OA_fread( stdin,A,n,k,q );
+}
+
+
 /*  PARSE    PARSE    PARSE    PARSE    PARSE    PARSE    PARSE    PARSE  */
 
-OA_parsein( argc,argv, q,nrow,ncol, A )
+int OA_parsein( argc,argv, q,nrow,ncol, A )
 int  argc;
 char *argv[];
 int *q, *nrow, *ncol, ***A;
@@ -247,12 +249,13 @@ if(  argc >1  ){
     exit(1);
   }
 }
+return 1;
 }
 
 
 /*  WORK    WORK    WORK    WORK    WORK    WORK    WORK    WORK    WORK  */
 
-OA_strworkcheck( work,str )
+int OA_strworkcheck( work,str )
 double work;
 int    str;
 {
@@ -273,41 +276,15 @@ if(  work > BIGWORK  ){
   fprintf(stderr,"MEDWORK in oa.h\n\n");
   fflush(stderr);
 }
+return 1;
 }
 
 
 /*  STRENGTH    STRENGTH    STRENGTH    STRENGTH    STRENGTH  */
 
 
-void OA_strength( q,nrow,ncol,A,str,verbose )
-int  q,nrow,ncol,**A,*str, verbose;
-/*
-     Calculate and return the strength of the array A.
-
-verbose = 0   =>   No printed output
-verbose = 1   =>   Only stderr output
-verbose = 2   =>   Output to both stdout and stderr
-
-*/
-{
-*str = -1;
-
-if(  OA_str0( q,nrow,ncol,A,verbose)   )
-  *str = 0;
-else
-  return;
-if(  OA_str1( q,nrow,ncol,A,verbose)   )
-  *str = 1;
-else
-  return;
-while( OA_strt( q,nrow,ncol,A,*str+1,verbose )  )
-  (*str)++;
-return;
-}
-
-
 /* Check strength 0 */
-OA_str0( q,nrow,ncol,A,verbose   )
+int OA_str0( q,nrow,ncol,A,verbose   )
 int      q,nrow,ncol,**A, verbose;
 {
 int  i, j1;
@@ -329,7 +306,7 @@ return 1;
 
 
 /* Check strength 1 */
-OA_str1( q,nrow,ncol,A,verbose   )
+int OA_str1( q,nrow,ncol,A,verbose   )
 int      q,nrow,ncol,**A, verbose;
 {
 int     i, j1, q1;
@@ -372,7 +349,7 @@ return 1;
 }
 
 /* Check strength 2  */
-OA_str2( q,nrow,ncol,A,verbose   )
+int OA_str2( q,nrow,ncol,A,verbose   )
 int      q,nrow,ncol,**A, verbose;
 {
 int  i, j1,j2, q1,q2;
@@ -429,7 +406,7 @@ return 1;
 
 
 /* Check strength 3  */
-OA_str3( q,nrow,ncol,A,verbose   )
+int OA_str3( q,nrow,ncol,A,verbose   )
 int      q,nrow,ncol,**A, verbose;
 {
 int  i, j1,j2,j3, q1,q2,q3;
@@ -486,7 +463,7 @@ return 1;
 
 
 /* Check strength 4  */
-OA_str4( q,nrow,ncol,A,verbose   )
+int OA_str4( q,nrow,ncol,A,verbose   )
 int      q,nrow,ncol,**A, verbose;
 {
 int  i, j1,j2,j3,j4, q1,q2,q3,q4;
@@ -546,7 +523,7 @@ return 1;
 
 
 /* Check strength t  */
-OA_strt( q,nrow,ncol,A,t,verbose   )
+int OA_strt( q,nrow,ncol,A,t,verbose   )
 int      q,nrow,ncol,**A,t,verbose;
 {
 int  row, i, ic, iq, *clist, *qlist, ctuples, qtuples;
@@ -636,7 +613,7 @@ for(  ic=0; ic<ctuples; ic++  ){   /* Loop over ordered tuples of columns */
     if(  clist[i]  )break;
   }
 
-  if(  work > MEDWORK && verbose > 0 && (t==1||t>1 && clist[1]==0)  )
+  if(  work > MEDWORK && verbose > 0 && (t==1|| (t>1 && clist[1]==0))  )
     fprintf(stderr,"No violation of strength %d involves column %d.\n",
 	    t,(clist[0]+ncol-1)%ncol);
 
@@ -649,3 +626,30 @@ if(  verbose >=2  )
   printf("The array has strength (at least) %d.\n",t);
 return 1;
 }
+
+void OA_strength( q,nrow,ncol,A,str,verbose )
+int  q,nrow,ncol,**A,*str, verbose;
+/*
+     Calculate and return the strength of the array A.
+
+verbose = 0   =>   No printed output
+verbose = 1   =>   Only stderr output
+verbose = 2   =>   Output to both stdout and stderr
+
+*/
+{
+*str = -1;
+
+if(  OA_str0( q,nrow,ncol,A,verbose)   )
+  *str = 0;
+else
+  return;
+if(  OA_str1( q,nrow,ncol,A,verbose)   )
+  *str = 1;
+else
+  return;
+while( OA_strt( q,nrow,ncol,A,*str+1,verbose )  )
+  (*str)++;
+return;
+}
+

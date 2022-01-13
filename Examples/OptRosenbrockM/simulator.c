@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
    int    n, i;
    double *X, Y;

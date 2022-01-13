@@ -1,4 +1,7 @@
 PSUADE is part of the CCSI toolset which earns the R&D 100 Award in 2016
+Version 1.9.0 
+- optimal experimental design
+- bug fixes
 Version 1.7.8a 
 - replace GP2; add MGP3, MRBF
 - ouu with nomad
@@ -36,3 +39,11 @@ Version 1.7.4a
 - bug fixes
 - other enhancements
  
+Version 1.8.0
+- tailored for FOQUS
+
+Version 1.9.0
+- enhancement of Version 1.8.0 with more
+  advanced experimental design tools
+
+

@@ -69,6 +69,7 @@ public:
    double  sum();
    void    scale(double);
    void    sort();
+   void    subvector(int, int);
    void    clean();
    void    print(char *);
    double  *getDVector();

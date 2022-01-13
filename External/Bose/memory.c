@@ -161,4 +161,5 @@ int ***imat, oldrowsize, newrowsize, colsize;
       return 0;
     }
   }
+  return 1;
 }

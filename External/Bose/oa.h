@@ -14,3 +14,11 @@ checks!
 #define BIGWORK 100000000
 #define MEDWORK BIGWORK
 
+#ifndef __BOSE_OA__
+#define __BOSE_OA__
+
+int grow_imatrix_byrows(int ***imat,int oldrowsize,int newrowsize,int colsize);
+int ipow( int a, int b);
+
+#endif
+

@@ -385,7 +385,9 @@ int PsuadeBase::interpretInteractive()
         else if (!strcmp(winput, "odoe"))
         {
           printf(
-          "   odoeu_optns   (Find G-, I-, D-, OR  A-optimal design  of size n)\n");
+          "   odoeu_boptn   (Find GIDAE-optimal design of size n: Bayes)\n");
+          printf(
+          "   odoeu_foptn   (Find GIDAE-optimal design of size n: Fisher)\n");
           printf(
           "   odoeu_eval    (Compute ALL GIDA metrics given a design - use MCMC)\n");
           printf(
@@ -608,7 +610,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rename a file
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rename"))
       {
         sscanf(lineIn,"%s %s %s",command,winput,cString);
@@ -631,7 +635,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ run
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "run"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -668,8 +674,10 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // Input/output commands
       // +++ load and loadp
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "load") || !strcmp(command, "loadp"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -797,7 +805,9 @@ int PsuadeBase::interpretInteractive()
         fflush(stdout);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ loadmore 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "loadmore")) 
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1018,7 +1028,9 @@ int PsuadeBase::interpretInteractive()
         dataReg_ = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ write 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "write"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1091,7 +1103,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ nwrite 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "nwrite"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1166,7 +1180,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iread 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iread"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1346,7 +1362,9 @@ int PsuadeBase::interpretInteractive()
         printf("nOutputs = %d (set to 1)\n", nOutputs_);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iwrite 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iwrite"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1415,7 +1433,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
       
+      //**/ ---------------------------------------------------------
       // +++ owrite 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "owrite"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1498,7 +1518,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ read_std 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "read_std"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1636,7 +1658,9 @@ int PsuadeBase::interpretInteractive()
         psuadeIO_->getSession(currSession);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ write_std 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "write_std"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1715,7 +1739,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ read_csv 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "read_csv"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1896,7 +1922,9 @@ int PsuadeBase::interpretInteractive()
         psuadeIO_->getSession(currSession);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ write_matlab 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "write_matlab"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -1967,7 +1995,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ read_xls  
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "read_xls"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -2177,7 +2207,9 @@ int PsuadeBase::interpretInteractive()
         printf("Use 'write' to store the data in PSUADE format.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ write_xls 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "write_xls"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -2248,7 +2280,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ write_ultra 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "write_ultra"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -2364,7 +2398,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ update 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "update"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -2504,7 +2540,9 @@ int PsuadeBase::interpretInteractive()
         ioPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ moat_adjust 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "moat_adjust"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -2558,7 +2596,9 @@ int PsuadeBase::interpretInteractive()
          fflush(stdout);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gmoat_adjust 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gmoat_adjust"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -2615,7 +2655,9 @@ int PsuadeBase::interpretInteractive()
          fflush(stdout);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iadd 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iadd"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -2784,7 +2826,9 @@ int PsuadeBase::interpretInteractive()
          ioPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oadd 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oadd"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -2882,7 +2926,9 @@ int PsuadeBase::interpretInteractive()
          ioPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iadd1 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iadd1"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -2980,7 +3026,9 @@ int PsuadeBase::interpretInteractive()
          printf("iadd1 : one input added (use sinfo to see updated sample).\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oadd1 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oadd1"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -3028,7 +3076,9 @@ int PsuadeBase::interpretInteractive()
          fflush(stdout);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ireplace 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ireplace"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -3129,7 +3179,9 @@ int PsuadeBase::interpretInteractive()
          fflush(stdout);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oreplace 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oreplace"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -3226,7 +3278,9 @@ int PsuadeBase::interpretInteractive()
          fflush(stdout);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ moatgen 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "moatgen"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -3493,7 +3547,9 @@ int PsuadeBase::interpretInteractive()
          faPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ moatgen2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "moatgen2"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -3827,7 +3883,9 @@ int PsuadeBase::interpretInteractive()
          delete [] states;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ moat_concatenate 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "moat_concat"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4023,7 +4081,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ splitsample 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "splitsample"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -4148,8 +4208,10 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // UQ/SA commands
       // +++ uq 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ua"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4179,7 +4241,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ca 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ca"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4209,7 +4273,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ anova 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "anova"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4239,7 +4305,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ moat 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "moat"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4269,7 +4337,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ moatmo 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "moatmo"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4400,7 +4470,9 @@ int PsuadeBase::interpretInteractive()
          delete [] tempW;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ff 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ff"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4430,7 +4502,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ lsa 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "lsa"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4460,7 +4534,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ mars_sa 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "mars_sa"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4506,7 +4582,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gp_sa 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gp_sa"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4561,7 +4639,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ sot_sa 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "sot_sa"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4606,7 +4686,9 @@ int PsuadeBase::interpretInteractive()
          printf("sot_sa score (sum of all std dev) = %e\n", ddata);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ me 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "me"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4642,7 +4724,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ie 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ie"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4792,7 +4876,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ tsi 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "tsi"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4836,7 +4922,9 @@ int PsuadeBase::interpretInteractive()
          delete tsiAnalyzer;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ sobol 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "sobol"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4878,7 +4966,9 @@ int PsuadeBase::interpretInteractive()
          delete sobolAnalyzer;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ fast 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "fast"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4909,7 +4999,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ meplot 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "meplot"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -4975,7 +5067,9 @@ int PsuadeBase::interpretInteractive()
          delete [] tempY;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ meplot2
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "meplot2"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -5093,7 +5187,9 @@ int PsuadeBase::interpretInteractive()
          delete [] tempInds;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsplot
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsplot"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -5116,7 +5212,9 @@ int PsuadeBase::interpretInteractive()
          pgPlotResponseSurface();
       }
 
+      //**/ ---------------------------------------------------------
       // +++ splot 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "splot"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -5239,7 +5337,9 @@ int PsuadeBase::interpretInteractive()
          fclose(fp);    
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rawi2
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rawi2"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -5394,7 +5494,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rawi3 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rawi3"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -5630,7 +5732,9 @@ int PsuadeBase::interpretInteractive()
          delete [] rsi3Matrix;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rspairs
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rspairs"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -5925,7 +6029,9 @@ int PsuadeBase::interpretInteractive()
          faPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsipairs
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsipairs"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -6150,7 +6256,9 @@ int PsuadeBase::interpretInteractive()
          plotIndices = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rscheck 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rscheck") || 
                !strcmp(command, "rsvalidate"))
       {
@@ -6210,7 +6318,9 @@ int PsuadeBase::interpretInteractive()
          delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rstest_ts 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rstest_ts"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -6372,7 +6482,9 @@ int PsuadeBase::interpretInteractive()
          tempW = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rstest_cv 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rstest_cv"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -6546,7 +6658,9 @@ int PsuadeBase::interpretInteractive()
          tempX = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rstest_gt 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rstest_gt"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -6752,7 +6866,9 @@ int PsuadeBase::interpretInteractive()
          faPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ svmfind 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "svmfind"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -6839,7 +6955,9 @@ int PsuadeBase::interpretInteractive()
 #endif
       }
 
+      //**/ ---------------------------------------------------------
       // +++ set_rstype 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "set_rstype"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -6867,7 +6985,9 @@ int PsuadeBase::interpretInteractive()
         psuadeIO_->updateAnalysisSection(-1, -1, faType, -1, -1, -1);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ set_sam_method 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "set_sam_method"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -6914,7 +7034,9 @@ int PsuadeBase::interpretInteractive()
         psuadeIO_->updateMethodSection(samplingMethod,nSamples_,-1,-1,-1);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rstest  or rstest_hs
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rstest") || !strcmp(command, "rstest_hs"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7121,7 +7243,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rstgen 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rstgen"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7222,7 +7346,9 @@ int PsuadeBase::interpretInteractive()
         delete ioPtr;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsint 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsint"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7278,7 +7404,9 @@ int PsuadeBase::interpretInteractive()
         states = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsvol 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsvol"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7361,7 +7489,9 @@ int PsuadeBase::interpretInteractive()
         states = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rs_ua, rsua, rsb_ua, rsuab and others
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsua")  || !strcmp(command, "rsua2") ||
                !strcmp(command, "rsb_ua") || !strcmp(command, "rs_ua2") ||
                !strcmp(command, "rs_uab") || !strcmp(command, "rsuab") ||
@@ -7394,7 +7524,9 @@ int PsuadeBase::interpretInteractive()
         newSession = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rssobol1b and others
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command,"rssobol1b") || !strcmp(command,"rssobol2b") ||
                !strcmp(command,"rssoboltsib") || !strcmp(command,"rsmeb") ||
                !strcmp(command,"rsieb"))
@@ -7452,7 +7584,9 @@ int PsuadeBase::interpretInteractive()
         printf("RE-LOAD THE ORIGINAL DATA FILE FOR MORE ANALYSIS.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ pca 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "pca"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7510,7 +7644,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ 1stest 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "1stest"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7527,7 +7663,9 @@ int PsuadeBase::interpretInteractive()
         delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ 2stest 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "2stest"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7545,7 +7683,9 @@ int PsuadeBase::interpretInteractive()
         fgets(lineIn,5000,stdin); 
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iplot1
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iplot1"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7640,7 +7780,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iplot2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iplot2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7772,7 +7914,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ splot2
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "splot2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -7938,7 +8082,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ splot3
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "splot3"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8053,7 +8199,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ splot3m
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "splot3m"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8286,7 +8434,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iplot3
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iplot3"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8473,7 +8623,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iplot4m
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iplot4m"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8627,7 +8779,9 @@ int PsuadeBase::interpretInteractive()
         printf("      distinguish between valid and invalid runs.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oplot2
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oplot2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8750,7 +8904,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ set_mcmc_option
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "set_mcmc_option"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8775,7 +8931,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsmcmc
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsmcmc"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8803,7 +8961,9 @@ int PsuadeBase::interpretInteractive()
         delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ hmcmc
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "hmcmc"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8818,7 +8978,9 @@ int PsuadeBase::interpretInteractive()
         delete hmcmc;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ mcmc
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "mcmc"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8847,8 +9009,10 @@ int PsuadeBase::interpretInteractive()
         delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // miscellaneous commands
       // +++ refine
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "refine"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -8913,7 +9077,9 @@ int PsuadeBase::interpretInteractive()
         psSamExpertMode_ = kk;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ a_refine_metis
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "a_refine_metis"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -9211,7 +9377,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ a_refine
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "a_refine") ||
                !strcmp(command, "a_refine_pu"))
       {
@@ -9441,7 +9609,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ a_refine_cv
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "a_refine_cv"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -9606,7 +9776,9 @@ int PsuadeBase::interpretInteractive()
         tempY = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ sqc
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "sqc"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -9636,7 +9808,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ssc
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ssc"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -9778,7 +9952,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ validate 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "validate"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -9807,7 +9983,9 @@ int PsuadeBase::interpretInteractive()
         psuadeIO_->writePsuadeFile(dataFile,0);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ invalidate 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "invalidate"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -9879,7 +10057,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ srandomize 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "srandomize"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -9913,7 +10093,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ spurge 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "spurge"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -9987,7 +10169,9 @@ int PsuadeBase::interpretInteractive()
          printf("spurge completed. Use write to store the reduced sample.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rm_dup
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rm_dup"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10175,7 +10359,9 @@ int PsuadeBase::interpretInteractive()
          printf("rm_dup completed. Use write to store the reduced sample.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ imodify 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "imodify"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10207,7 +10393,9 @@ int PsuadeBase::interpretInteractive()
          psuadeIO_->getSession(currSession);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ omodify 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "omodify"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10239,7 +10427,9 @@ int PsuadeBase::interpretInteractive()
          psuadeIO_->getSession(currSession);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ifilter 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ifilter"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10319,7 +10509,9 @@ int PsuadeBase::interpretInteractive()
          printf("ifilter completed. Use write and load again to continue.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ofilter 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ofilter"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10388,7 +10580,9 @@ int PsuadeBase::interpretInteractive()
          printf("ofilter completed. Use write and load again to continue.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oop 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oop"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10433,7 +10627,9 @@ int PsuadeBase::interpretInteractive()
          printf("oop completed. Use write and load again to continue.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oop2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oop2"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10478,7 +10674,9 @@ int PsuadeBase::interpretInteractive()
          printf("oop2 completed. Use write and load again to continue.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oop3 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oop3"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10525,7 +10723,9 @@ int PsuadeBase::interpretInteractive()
          printf("oop3 completed. Use write and load again to continue.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ nna
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "nna"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10621,7 +10821,9 @@ int PsuadeBase::interpretInteractive()
          else printf("Nearest neighbor result is not in file matlabnna.m.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ setranseed
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "setranseed"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10636,7 +10838,9 @@ int PsuadeBase::interpretInteractive()
          else printf("ERROR: invalid seed - no change\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ interface_track
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "interface_track"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10842,7 +11046,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ pdfconvert 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "pdfconvert"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -10907,7 +11113,9 @@ int PsuadeBase::interpretInteractive()
          printf("You can now store your new sample using 'write'.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rand_draw 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rand_draw"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -10978,7 +11186,9 @@ int PsuadeBase::interpretInteractive()
         delete ioPtr;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rand_drawb 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rand_drawb"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -11063,7 +11273,9 @@ int PsuadeBase::interpretInteractive()
         delete ioPtr;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rand_draw2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rand_draw2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -11273,7 +11485,9 @@ int PsuadeBase::interpretInteractive()
         ioPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gensample 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gensample"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11330,7 +11544,9 @@ int PsuadeBase::interpretInteractive()
          states = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ cdf_lookup 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "cdf_lookup"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -11432,7 +11648,9 @@ int PsuadeBase::interpretInteractive()
         pdfman = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ksdensity 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ksdensity"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11490,7 +11708,9 @@ int PsuadeBase::interpretInteractive()
          delete ksd;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ output_file 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "output_file"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11509,7 +11729,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ setupguide 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "setupguide"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11521,7 +11743,9 @@ int PsuadeBase::interpretInteractive()
          setupGuide();
       }
 
+      //**/ ---------------------------------------------------------
       // +++ genworkflow 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "genworkflow"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11533,7 +11757,9 @@ int PsuadeBase::interpretInteractive()
          printf("genworkflow not implemented yet.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ geninputfile 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "geninputfile"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11640,7 +11866,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ genbatchfile 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "genbatchfile"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11653,7 +11881,9 @@ int PsuadeBase::interpretInteractive()
          genBatchFile(0);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gendriver 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gendriver"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11666,7 +11896,9 @@ int PsuadeBase::interpretInteractive()
          genDriver(0);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gendist 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gendist"))
       {
          int    ns, gtype;
@@ -11724,7 +11956,9 @@ int PsuadeBase::interpretInteractive()
          printf("data file created in sample1D.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ genexample 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "genexample"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11739,7 +11973,9 @@ int PsuadeBase::interpretInteractive()
          printf("Now use: psuade psuade.in to run the example.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ genconfigfile 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "genconfigfile"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11768,7 +12004,9 @@ int PsuadeBase::interpretInteractive()
                    dataFile);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ setconfigoption 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "setconfigoption"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11788,7 +12026,9 @@ int PsuadeBase::interpretInteractive()
          printf("%s\n", lineIn);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ showconfigtable 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "showconfigtable"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11803,7 +12043,9 @@ int PsuadeBase::interpretInteractive()
          if (psConfig_ != NULL) psConfig_->print();
       }
 
+      //**/ ---------------------------------------------------------
       // printconfig
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "printconfig"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -11818,7 +12060,9 @@ int PsuadeBase::interpretInteractive()
          else                   psConfig_->print();
       }
 
+      //**/ ---------------------------------------------------------
       // +++ chkjobs 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "chkjobs"))
       {
          int  nPatterns, choice, nJobs1, nJobs2;
@@ -12041,7 +12285,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ list1 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "list1"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12099,7 +12345,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ list2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "list2"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12193,7 +12441,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ listall 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "listall"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12252,7 +12502,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ disp_sample or sshow
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "disp_sample") || !strcmp(command, "sshow"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12281,7 +12533,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ max 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "max"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12324,7 +12578,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ min 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "min"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12367,7 +12623,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ onorm 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "onorm"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12397,7 +12655,9 @@ int PsuadeBase::interpretInteractive()
          }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ osum 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "osum"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -12428,7 +12688,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ idelete 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "idelete"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12540,7 +12802,9 @@ int PsuadeBase::interpretInteractive()
          printf("idelete completed. Use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ odelete 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "odelete"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12593,7 +12857,9 @@ int PsuadeBase::interpretInteractive()
          printf("odelete completed. Use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ sdelete 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "sdelete"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12638,7 +12904,9 @@ int PsuadeBase::interpretInteractive()
          printf("sdelete completed. Use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ishuffle 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ishuffle"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12737,7 +13005,9 @@ int PsuadeBase::interpretInteractive()
          printf("ishuffle completed. Use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iselect_index 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iselect_index"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12851,7 +13121,9 @@ int PsuadeBase::interpretInteractive()
          printf("iselect_index completed. Use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iselect_name 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iselect_name"))
       {
          sscanf(lineIn,"%s %s",command,winput);
@@ -12986,7 +13258,9 @@ int PsuadeBase::interpretInteractive()
          printf("iselect_name completed. Use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ itag 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "itag"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13054,7 +13328,9 @@ int PsuadeBase::interpretInteractive()
         printf("itag completed.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ otag 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "otag"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13119,7 +13395,9 @@ int PsuadeBase::interpretInteractive()
         printf("otag completed.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oreset 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oreset"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13167,7 +13445,9 @@ int PsuadeBase::interpretInteractive()
         printf("oreset completed: use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ irerange
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "irerange"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13216,7 +13496,9 @@ int PsuadeBase::interpretInteractive()
         printf("irerange completed: use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ireset 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ireset"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13267,7 +13549,9 @@ int PsuadeBase::interpretInteractive()
         printf("ireset completed: use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ifloor 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ifloor"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13302,7 +13586,9 @@ int PsuadeBase::interpretInteractive()
         printf("ifloor completed: use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iceil 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iceil"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13339,7 +13625,9 @@ int PsuadeBase::interpretInteractive()
         printf("iceil completed: use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iround 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iround"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13376,7 +13664,9 @@ int PsuadeBase::interpretInteractive()
         printf("iceil completed: use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ itran 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "itran"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13480,7 +13770,9 @@ int PsuadeBase::interpretInteractive()
         printf("Input transformation completed: use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ otran 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "otran"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13520,7 +13812,9 @@ int PsuadeBase::interpretInteractive()
         printf("Output transformation completed: use 'write' to store.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iotrace 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iotrace"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13646,7 +13940,9 @@ int PsuadeBase::interpretInteractive()
         delete [] tempW;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iplot2all 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iplot2_all"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13797,7 +14093,9 @@ int PsuadeBase::interpretInteractive()
         delete [] indSet;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ihist 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ihist"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13852,7 +14150,9 @@ int PsuadeBase::interpretInteractive()
         else printf("Histogram is available in matlabihist.m\n");
       }
          
+      //**/ ---------------------------------------------------------
       // +++ ihist2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ihist2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -13965,7 +14265,9 @@ int PsuadeBase::interpretInteractive()
         printf("Histogram is available in matlabihist2.m\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ oplot_pdf 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oplot_pdf"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14019,7 +14321,9 @@ int PsuadeBase::interpretInteractive()
         else printf("Histogram is available in matlabopltpdf.m\n");
       }
          
+      //**/ ---------------------------------------------------------
       // +++ oplot2_pdf 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "oplot2_pdf"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14066,7 +14370,9 @@ int PsuadeBase::interpretInteractive()
         printf("Distribution PDFs are available in %s.\n",dataFile);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iplot_pdf 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iplot_pdf"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14179,7 +14485,9 @@ int PsuadeBase::interpretInteractive()
         indSet = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ iplot2_pdf 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "iplot2_pdf"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14212,7 +14520,9 @@ int PsuadeBase::interpretInteractive()
         else                  strcpy(dataFile, "matlabiplt2pdf.m");
       }
  
+      //**/ ---------------------------------------------------------
       // +++ printlevel 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "printlevel"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14235,7 +14545,9 @@ int PsuadeBase::interpretInteractive()
         setPrintLevelTS(outputLevel_);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ turn on printlevel=4 and interactive
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "on"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14250,7 +14562,9 @@ int PsuadeBase::interpretInteractive()
         psSamExpertMode_ = 1;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gp_sa2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gp_sa2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14323,7 +14637,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ sot_sa2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "sot_sa2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14364,7 +14680,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ delta_test 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "delta_test"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14394,7 +14712,9 @@ int PsuadeBase::interpretInteractive()
         delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ eta_test 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "eta_test"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14426,7 +14746,9 @@ int PsuadeBase::interpretInteractive()
         delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gd_test 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gd_test"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14458,7 +14780,9 @@ int PsuadeBase::interpretInteractive()
         delete anaManager;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rscreate 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rscreate"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14506,7 +14830,9 @@ int PsuadeBase::interpretInteractive()
         printf("(3) use rseval_m and a file containing new points\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rseval 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rseval"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14703,7 +15029,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rseval_m 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rseval_m"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14843,7 +15171,9 @@ int PsuadeBase::interpretInteractive()
         delete [] inputSettings;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsevaluate
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsevaluate"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -14980,7 +15310,9 @@ int PsuadeBase::interpretInteractive()
         faPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsevaluate2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsevaluate2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15319,7 +15651,9 @@ int PsuadeBase::interpretInteractive()
         faPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rs_splot 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rs_splot"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15444,7 +15778,9 @@ int PsuadeBase::interpretInteractive()
         states = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ interactive 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "interactive"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15472,7 +15808,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ dontask 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "dontask"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15488,7 +15826,9 @@ int PsuadeBase::interpretInteractive()
         else                     psInteractive_ = 0;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ dontprint 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "dontprint"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15503,7 +15843,9 @@ int PsuadeBase::interpretInteractive()
         else                      psScreenOutput_ = 0;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ io_expert 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "io_expert"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15529,7 +15871,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rs_expert 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rs_expert"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15556,7 +15900,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rs_codegen 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rs_codegen"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15586,7 +15932,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ana_expert 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "ana_expert"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15612,7 +15960,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ sam_expert 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "sam_expert"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15638,7 +15988,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ opt_expert 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "opt_expert"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15664,7 +16016,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ genhistogram 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "genhistogram"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15734,7 +16088,9 @@ int PsuadeBase::interpretInteractive()
         delete [] incrs;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ genhistogram2 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "genhistogram2"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15808,7 +16164,9 @@ int PsuadeBase::interpretInteractive()
         //printf("  against the iplot2_pdf plots from the original sample.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ master 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "master"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15833,7 +16191,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gm 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gm"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15858,7 +16218,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ use_configfile 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "use_configfile"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15891,7 +16253,9 @@ int PsuadeBase::interpretInteractive()
         psConfig_ = new PsuadeConfig(psConfigFileName_,1);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ scilab 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "scilab"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15915,7 +16279,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsmax 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsmax"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -15934,7 +16300,9 @@ int PsuadeBase::interpretInteractive()
                psFAMaxDataPts_);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ rsca 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "rsca"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -16364,7 +16732,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ pdfcheck 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "pdfcheck"))
       {
         int    nSam, *PDFs;
@@ -16680,7 +17050,9 @@ int PsuadeBase::interpretInteractive()
         delete [] PDFs;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ doe_gp 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "doe_gp"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -16708,7 +17080,9 @@ int PsuadeBase::interpretInteractive()
         delete sampPtr;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ doe_mmd 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "doe_mmd"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -16845,7 +17219,9 @@ int PsuadeBase::interpretInteractive()
         printf("max min distance = %e\n", maxMinVal);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ doptimal 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "doptimal"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -16877,7 +17253,9 @@ int PsuadeBase::interpretInteractive()
         printf("D-optimal measure = %e\n", dtemp); 
       }
 
+      //**/ ---------------------------------------------------------
       // +++ aoptimal 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "aoptimal"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -16909,7 +17287,9 @@ int PsuadeBase::interpretInteractive()
         printf("A-optimal measure = %e\n", dtemp); 
       }
 
+      //**/ ---------------------------------------------------------
       // +++ gen_discrete 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "gen_discrete"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -16990,7 +17370,9 @@ int PsuadeBase::interpretInteractive()
         tempX = tempY = tempT = tempW = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ mo_opt
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "mo_opt"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17076,7 +17458,9 @@ int PsuadeBase::interpretInteractive()
         pUpper.clean();
       }
 
+      //**/ ---------------------------------------------------------
       // +++ so_ua or soua  
+      //**/ ---------------------------------------------------------
       else if ((!strcmp(command, "so_ua")) || (!strcmp(command, "soua")))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17342,7 +17726,9 @@ int PsuadeBase::interpretInteractive()
         faPtr = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ae_ua or aeua   
+      //**/ ---------------------------------------------------------
       else if ((!strcmp(command, "ae_ua")) || (!strcmp(command, "aeua")))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17669,7 +18055,9 @@ int PsuadeBase::interpretInteractive()
         samStates = NULL;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ sys
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "sys"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17686,7 +18074,9 @@ int PsuadeBase::interpretInteractive()
         if (ii != 498) system(&lineIn[ii+4]);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ivec_create
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command,"ivec_create") || !strcmp(command,"vcreate"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17712,7 +18102,9 @@ int PsuadeBase::interpretInteractive()
         printf(" to be the mid points.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ivec_modify
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command,"ivec_modify") || !strcmp(command,"vmodify"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17740,7 +18132,9 @@ int PsuadeBase::interpretInteractive()
         dataReg_[ind] = ddata;
       }
 
+      //**/ ---------------------------------------------------------
       // +++ ivec_show
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command,"ivec_show") || !strcmp(command, "vshow"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17761,7 +18155,9 @@ int PsuadeBase::interpretInteractive()
           printf("Input %3d = %e\n", ii+1, dataReg_[ii]);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ showformat
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "showformat"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17834,7 +18230,9 @@ int PsuadeBase::interpretInteractive()
         printDashes(PL_INFO, 0);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ setdriver 
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "setdriver"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17884,7 +18282,9 @@ int PsuadeBase::interpretInteractive()
         printf("Use 'write' to update your PSUADE input file.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ start_matlab 
+      //**/ ---------------------------------------------------------
       else if ((!strcmp(command, "start_matlab")))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17912,7 +18312,9 @@ int PsuadeBase::interpretInteractive()
         }
       }
 
+      //**/ ---------------------------------------------------------
       // +++ checkformat 
+      //**/ ---------------------------------------------------------
       else if ((!strcmp(command, "checkformat")))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -17977,7 +18379,9 @@ int PsuadeBase::interpretInteractive()
         else             printf("FAILED: invalid file format.\n");
       }
 
+      //**/ ---------------------------------------------------------
       // +++ sample_info or sinfo
+      //**/ ---------------------------------------------------------
       else if (!strcmp(command, "sample_info") || !strcmp(command, "sinfo"))
       {
         sscanf(lineIn,"%s %s",command,winput);
@@ -18020,24 +18424,34 @@ int PsuadeBase::interpretInteractive()
         printf("Number of sample points with valid outputs = %d\n",count);
       }
 
+      //**/ ---------------------------------------------------------
       // +++ optimal design for batch size of n (use global optimzer)
-      else if (!strcmp(command, "odoeu_optns"))
+      //**/ ---------------------------------------------------------
+      else if (!strcmp(command, "odoeu_foptn") ||
+               !strcmp(command, "odoeu_boptn"))
       {
+        int bayesMode=0;
+        if (!strcmp(command, "odoeu_boptn")) bayesMode = 1;
         sscanf(lineIn,"%s %s",command,winput);
         if (!strcmp(winput, "-h"))
         {
-          printf("odoeu_optns: select optimal design of batch size n using\n");
-          printf("             a global optimization method based on one\n");
-          printf("             of the G, I, D, A, or E metric.\n");
-          printf("syntax: odoeu_optns (no argument needed)\n");
-          printf("This command assumes some inputs are design parameters\n");
-          printf("X and some are uncertain parameters U. Using global\n");
-          printf("searches, it seeks to find for the candidate S the subset\n");
-          printf("of designs of size n that optimizes the G/I/D/A/E values.\n");
-          printf("Since it uses an optimizer (SCE in this case) but the\n");
-          printf("optimization problem may have many local minima, the \n");
-          printf("solution may be suboptimal given limited search time.\n");
-          continue;
+          if (bayesMode == 0)
+            printf("odoeu_foptn: select optimal design of batch size n ");
+          else
+            printf("odoeu_boptn: select optimal design of batch size n ");
+          printf("using a global\n");
+          printf("            optimization method based on one of the ");
+          printf("G, I, D, A, or\n");
+          if (bayesMode == 0)
+          {
+            printf("            E metric (use RS and Fisher matrix).\n");
+            printf("syntax: odoeu_foptn (no argument needed)\n");
+          }
+          else
+          {
+            printf("            E metric (use RS and MCMC).\n");
+            printf("syntax: odoeu_boptn (no argument needed)\n");
+          }
         }
         printDashes(PL_INFO, 0);
         printf("Proceed ? (y or n to abort) ");
@@ -18045,19 +18459,31 @@ int PsuadeBase::interpretInteractive()
         fgets(winput,5000,stdin);
         if (lineIn2[0] != 'y') continue;
 
-        printf("Specify which metric to use for optimal design:\n");
-        printf("1.  G-optimal (Bayes)\n");
-        printf("2.  I-optimal (Bayes)\n");
-        printf("3.  D-optimal (Bayes)\n");
-        printf("4.  A-optimal (Bayes)\n");
-        printf("5.  E-optimal (Bayes)\n");
-        printf("6.  G-optimal (use Fisher approximation)\n");
-        printf("7.  I-optimal (use Fisher approximation)\n");
-        printf("8.  D-optimal (use Fisher approximation)\n");
-        printf("9.  A-optimal (use Fisher approximation)\n");
-        printf("10. E-optimal (use Fisher approximation)\n");
-        strcpy(pString, "Select metric? (1 - 10) ");
-        int optOption = getInt(1,10,pString);
+        int nChoices;
+        if (bayesMode == 1)
+        {
+          printf("Specify which metric to use for optimal design:\n");
+          printf("1.  G-optimal (Bayesian)\n");
+          printf("2.  I-optimal (Bayesian)\n");
+          printf("3.  D-optimal (Bayesian)\n");
+          printf("4.  A-optimal (Bayesian)\n");
+          printf("5.  E-optimal (Bayesian)\n");
+          nChoices = 5;
+          sprintf(pString, "Make you choice : (1 - 5) ");
+        }
+        else
+        {
+          printf("1.  G-optimal (Fisher approximation)\n");
+          printf("2.  I-optimal (Fisher approximation)\n");
+          printf("3.  D-optimal (Fisher approximation)\n");
+          printf("4.  A-optimal (Fisher approximation)\n");
+          printf("5.  E-optimal (Fisher approximation)\n");
+          nChoices = 5;
+          sprintf(pString, "Make you choice : (1 - 5) ");
+        }
+        int optOption = 0;
+        optOption = getInt(1,nChoices,pString);
+
         printf("Next enter the number of points in the candidate set.\n");
         printf("Please Make sure the candidate set size you enter here is\n");
         printf("consistent with the candidate set file you enter later.\n");
@@ -18079,22 +18505,35 @@ int PsuadeBase::interpretInteractive()
           matOptData.setEntry(0, ii, ddata);
         }
         matOptData.setEntry(1, 0, PSUADE_UNDEFINED);
-        printf("An initial guess is to be provided? (y or n) ");
-        scanf("%s",pString); 
-        fgets(winput, 500, stdin);
+
+        int numStarts=1;
+        printf("Use multi-start optimization?  (y or n) ");
+        scanf("%s",pString);
         if (pString[0] == 'y')
         {
-          for (ii = 0; ii < numSelect; ii++)
+          fgets(winput, 500, stdin);
+          sprintf(pString, "How many starts (2 - 100) ? ");
+          numStarts = getInt(1, 100, pString);
+        }
+        else
+        {
+          printf("An initial guess is to be provided? (y or n) ");
+          scanf("%s",pString); 
+          fgets(winput, 500, stdin);
+          if (pString[0] == 'y')
           {
-            sprintf(pString,"Enter initial guess for input %d (1 - %d) : ",
-                    ii+1, nCand);
-            ddata = getDouble(pString);
-            if (ddata < 0 || ddata > nCand)
+            for (ii = 0; ii < numSelect; ii++)
             {
-              printf("Wrong input: default to 0\n");
-              ddata = 1;
+              sprintf(pString,"Enter initial guess for input %d (1 - %d) : ",
+                      ii+1, nCand);
+              ddata = getDouble(pString);
+              if (ddata < 0 || ddata > nCand)
+              {
+                printf("Wrong input: default to 0\n");
+                ddata = 1;
+              }
+              matOptData.setEntry(0,ii,ddata);
             }
-            matOptData.setEntry(0,ii,ddata);
           }
         }
 
@@ -18133,16 +18572,23 @@ int PsuadeBase::interpretInteractive()
         funcIO->loadFunctionData(5, strArray);
         for (ii = 0; ii < numSelect+5; ii++) delete [] strArray[ii];
         delete [] strArray;
-        if (optOption == 1) funcIO->setLocalFunction(20);
-        if (optOption == 2) funcIO->setLocalFunction(21);
-        if (optOption == 3) funcIO->setLocalFunction(22);
-        if (optOption == 4) funcIO->setLocalFunction(23);
-        if (optOption == 5) funcIO->setLocalFunction(24);
-        if (optOption == 6) funcIO->setLocalFunction(25);
-        if (optOption == 7) funcIO->setLocalFunction(26);
-        if (optOption == 8) funcIO->setLocalFunction(27);
-        if (optOption == 9) funcIO->setLocalFunction(28);
-        if (optOption == 10) funcIO->setLocalFunction(29);
+
+        if (bayesMode == 1)
+        {
+          if (optOption == 1) funcIO->setLocalFunction(20);
+          if (optOption == 2) funcIO->setLocalFunction(21);
+          if (optOption == 3) funcIO->setLocalFunction(22);
+          if (optOption == 4) funcIO->setLocalFunction(23);
+          if (optOption == 5) funcIO->setLocalFunction(24);
+        }
+        else
+        {
+          if (optOption == 1) funcIO->setLocalFunction(25);
+          if (optOption == 2) funcIO->setLocalFunction(26);
+          if (optOption == 3) funcIO->setLocalFunction(27);
+          if (optOption == 4) funcIO->setLocalFunction(28);
+          if (optOption == 5) funcIO->setLocalFunction(29);
+        }
         funcIO->setOutputLevel(outputLevel_);
 
         int nInitX = 1;
@@ -18154,14 +18600,36 @@ int PsuadeBase::interpretInteractive()
         }
         int saveMode = psInteractive_;
         psInteractive_ = 0;
-        status = OptimizerSearch(psIO,funcIO,matOptData.getMatrix2D(),
-                                 &nInitX);
+        psIVector vecBestSet;
+        vecBestSet.setLength(numSelect);
+        double bestVal = PSUADE_UNDEFINED;
+        for (kk = 0; kk < numStarts; kk++)
+        {
+          if (numStarts > 1)
+          {
+            printf("START %d (out of %d)\n", kk+1, numStarts);
+            for (ii = 0; ii < numSelect; ii++)
+            {
+              ddata = PSUADE_rand() % nCand + 1;
+              matOptData.setEntry(0, ii, ddata);
+            }
+          }
+          status = OptimizerSearch(psIO,funcIO,matOptData.getMatrix2D(),
+                                   &nInitX);
+          if (matOptData.getEntry(3,0) < bestVal)
+          {
+            for (ii = 0; ii < numSelect; ii++)
+              vecBestSet[ii] = (int) matOptData.getEntry(2,ii);
+            bestVal = matOptData.getEntry(3,0);
+          }
+        }
         psInteractive_ = saveMode;
         printAsterisks(PL_INFO, 0);
-        printf("odoeu_optns best selection = ");
+        if (bayesMode == 0) printf("odoeu_foptn best selection = ");
+        else                printf("odoeu_boptn best selection = ");
         for (ii = 0; ii < numSelect; ii++)
-          printf("%d ", (int) matOptData.getEntry(2,ii));
-        printf(" (optimal value = %e)\n",matOptData.getEntry(3,0));
+          printf("%d ", vecBestSet[ii]);
+        printf(" (optimal value = %e)\n",bestVal);
         printAsterisks(PL_INFO, 0);
         for (ii = 0; ii < numSelect; ii++)
         {
@@ -18203,6 +18671,7 @@ int PsuadeBase::interpretInteractive()
         funcIO->setLocalFunction(20);
         funcIO->psLocalFunction(0, NULL, 5, vecMetrics.getDVector());
         funcIO->setLocalFunction(999);
+        delete funcIO;
         printAsterisks(PL_INFO, 0);
         printf("G-metric = %e\n", vecMetrics[0]);
         printf("I-metric = %e\n", vecMetrics[1]);

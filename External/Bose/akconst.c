@@ -39,7 +39,7 @@ It seemed to be impossible to find a constant b[1],c[1] pair.
 */
 
 
-akeven( gf, kay, b, c, k )
+int akeven( gf, kay, b, c, k )
 struct GF *gf;
 int        *kay, *b, *c, *k;
 {
@@ -83,6 +83,7 @@ if(  q>4  ){
   }
 */
 }
+return 1;
 }
 
 /*
@@ -176,7 +177,7 @@ for(  i=1; i<q; i++  ){
 
 /*  ODD    ODD    ODD    ODD    ODD    ODD    ODD    ODD    ODD  */
 
-akodd( gf, kay, b, c, k )
+int akodd( gf, kay, b, c, k )
 struct GF *gf;
 int        *kay, *b, *c, *k;
 {
@@ -208,4 +209,5 @@ for(  i=1; i<q; i++  ){
   c[i]= gf->times[c[i]][gf->inv[four]];
   /*    printf("i,num,den,b,k,c %3d %3d %3d %3d %3d %3d\n",i,num,den,b[i],k[i],c[i]);*/
 }
+return 1;
 }
