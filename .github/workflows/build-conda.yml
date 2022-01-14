@@ -17,14 +17,24 @@ defaults:
 jobs:
   conda-build:
     name: Build Conda package (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os-runner }}
     strategy:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-20.04
-          - windows-2019
-          - macos-10.15
+          - linux
+          - macos
+          - windows
+        include:
+          - os: linux
+            os-runner: ubuntu-20.04
+            artifact-upload-path: /usr/share/miniconda/envs/build-psuade/conda-bld/linux-64/psuade-lite-*.tar.bz2
+          - os: macos
+            os-runner: macos-10.15
+            artifact-upload-path: /usr/local/miniconda/envs/build-psuade/conda-bld/osx-64/psuade-lite-*.tar.bz2
+          - os: windows
+            os-runner: windows-2019
+            artifact-upload-path: C:\Miniconda\envs\build-psuade\conda-bld\win-64\psuade-lite-*.tar.bz2
     steps:
       - uses: actions/checkout@v2
       - name: Set up Conda
@@ -51,3 +61,9 @@ jobs:
           conda list
           echo '::endgroup::'
           conda-build .
+      - name: Save built package as downloadable artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: psuade-lite-${{ matrix.os }}
+          path: ${{ matrix.artifact-upload-path }}
+          if-no-files-found: error
