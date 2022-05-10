@@ -8,7 +8,7 @@ enable_testing ()
 set (PROJECT_NAME psuade)
 # The version number.
 set (psuade_VERSION_MAJOR 1)
-set (psuade_VERSION_MINOR 9)
+set (psuade_VERSION_MINOR 10)
 set (psuade_VERSION_PATCH 0)
 
 set (PROJECT_INCLUDE_DIR "${PROJECT_BINARY_DIR}/include")

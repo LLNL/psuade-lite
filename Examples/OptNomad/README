@@ -101,5 +101,10 @@ Test problem #4 : a simple problem
 
 How to run:
 - Compile: cc -o simulator4 simulator4.c -lm
-- psuade < psuadeNomad4.in
+- psuade psuadeNomad4.in
+
+OPTIMIZATION GLOBAL MINIMUM - 
+		X     1 = 6
+		X     2 =   2.66666667e+00
+			Ymin =   7.33333333e+02
 

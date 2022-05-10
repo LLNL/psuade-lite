@@ -10,26 +10,12 @@ INPUT
    variable 7 X7 =   1      2
 END
 OUTPUT
-   dimension = 19
+   dimension = 5
    variable 1 Z
    variable 2 Z1
    variable 3 Z2
    variable 4 Z3
    variable 5 Z4
-   variable 6 Z5
-   variable 7 Z6
-   variable 8 Z7
-   variable 9 Z8
-   variable 10 Z9
-   variable 11 ZA
-   variable 12 ZB
-   variable 13 ZC
-   variable 14 ZD
-   variable 15 ZE
-   variable 16 ZF
-   variable 17 ZG
-   variable 18 ZH
-   variable 19 ZI
 END
 METHOD
    sampling = LPTAU

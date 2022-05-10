@@ -2528,6 +2528,16 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
         }
       } /* cc for nCandidates */
     }
+    //**/ Should be included
+    for (cc = 0; cc < nCandidates; cc++)
+    {
+      for (jj = 0; jj < nUInps; jj++)
+      {
+        ddata = matGrad.getEntry(jj, cc);
+        ddata /= (double) priorNR;
+        matGrad.setEntry(jj, cc, ddata);
+      }
+    }
 
     //**/ --- now compute information matrix (Grad * Grad^T) 
     //**/ --- covariance matrix ~ inv(Grad * Grad^T)
@@ -2537,8 +2547,8 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
     ddata = matCovInv.computeDeterminant(); 
     if (PABS(ddata) < 1e-16) 
     {
-      printf("ERROR: singular Fisher matrix.\n");
-      if (printLevel_ > 0)
+      printf("INFO: Singular Fisher matrix ==> skip.\n");
+      if (printLevel_ > 1)
       {
         printf("Current Fisher matrix:\n");
         matCovInv.print();
@@ -2570,7 +2580,23 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
       //**/ --- compute G and I metrics, if needed
       if (matEvalSet.nrows() > 0)
       {
-        double GMetric2T = 0;
+        //**/ --- should be added
+        //**/ --- first stuff the mean prior sample into vecXT
+        vecXT.setLength(nInps);
+        for (jj = 0; jj < nInps; jj++)
+        {
+          for (ss = 0; ss < priorNR; ss++)
+          {
+            if (vecIT[jj] >= 1)
+            {
+              ind = vecIT[jj] - 1;
+              vecXT[jj] += matPriorSample.getEntry(ss,ind);
+            }
+          }
+          vecXT[jj] /= (double) priorNR;
+        }
+        GMetric2 = 0;
+        int nGood=0;
         for (cc = 0; cc < matEvalSet.nrows(); cc++)
         {
           //**/ stuff evaluation coordinate in vecXT
@@ -2598,7 +2624,7 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
             {
               ind = vecIT[jj] - 1;
               dtmp = vecXT[jj];
-              vecXT[jj] *= (1.0 + 1e-8);
+              vecXT[jj] *= (1.0 + 1e-6);
               rsPtrs[0]->evaluatePoint(iOne,vecXT.getDVector(),&ddata);
               ddata = (ddata - vecYT[0]) / (vecXT[jj] - dtmp);
               vecXT[jj] = dtmp;
@@ -2610,10 +2636,24 @@ int FunctionInterface::psLocalFunction(int nInputsIn, double *inputsIn,
           ddata = 0;
           for (jj = 0; jj < nUInps; jj++) 
             ddata += (vecCT[jj] * vecMCT[jj]);
-          IMetric2 += ddata;
-          if (ddata > GMetric2T) GMetric2T = ddata;
+          if (ddata > 0)
+          {
+            IMetric2 += ddata;
+            if (ddata > GMetric2) GMetric2 = ddata;
+            nGood++;
+          }
         }
-        GMetric2 += GMetric2T;
+        if (nGood == 0)
+        {
+          if (printLevel_ > 0)
+            printf("\nINFO: evaluation set not informative ==> skip.\n");
+          IMetric2 = PSUADE_UNDEFINED;
+          GMetric2 = PSUADE_UNDEFINED;
+        }   
+        else
+        { 
+          IMetric2 /= (double) nGood;
+        }
       }
     }
 

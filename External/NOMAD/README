@@ -1,0 +1,5 @@
+11/2/2020
+Modified 
+Evaluator_Control.cpp line 682 - remove the compiler complaints about using ||
+Mads.cpp line 1942 - delete M
+
