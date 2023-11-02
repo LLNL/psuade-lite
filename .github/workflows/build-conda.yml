@@ -30,7 +30,7 @@ jobs:
             os-runner: ubuntu-20.04
             artifact-upload-path: /usr/share/miniconda/envs/build-psuade/conda-bld/linux-64/psuade-lite-*.tar.bz2
           - os: macos
-            os-runner: macos-latest-xlarge
+            os-runner: macos-latest
             artifact-upload-path: /usr/local/miniconda/envs/build-psuade/conda-bld/osx-64/psuade-lite-*.tar.bz2
           - os: windows
             os-runner: windows-2019
